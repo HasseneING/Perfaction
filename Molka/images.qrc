@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>add.png</file>
+        <file>delete.png</file>
+        <file>edit.png</file>
+        <file>list.png</file>
+        <file>list2.png</file>
+        <file>refresh.png</file>
+        <file>pneu.png</file>
+        <file>save.png</file>
+        <file>calcul.png</file>
+        <file>bin.png</file>
+        <file>return.png</file>
+    </qresource>
+</RCC>
