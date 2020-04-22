@@ -87,7 +87,28 @@ QSqlQueryModel * clientph::afficherid()
 
     model->setQuery("select clients.IDC, physique.CIN,physique.NOM, physique.PRENOM, physique.NAISSANCE, clients.TEL,clients.ADRESSE,clients.EMAIL"
                     " ,clients.IDF from clients join physique "
-                    "on clients.idc = physique.idc OREDER BY physique.IDC");
+                    "on clients.idc = physique.idc ORDER BY physique.IDC");
+
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("CIN"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("NOM"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("PRENOM"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("DATE DE NAISSANCE"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("TELEPHONE"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("ADRESSE"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("EMAIL"));
+    model->setHeaderData(8, Qt::Horizontal, QObject::tr("ID C.Fidelite"));
+
+    return model;
+}
+
+QSqlQueryModel * clientph::afficherdate()
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+
+    model->setQuery("select clients.IDC, physique.CIN,physique.NOM, physique.PRENOM, physique.NAISSANCE, clients.TEL,clients.ADRESSE,clients.EMAIL"
+                    " ,clients.IDF from clients join physique "
+                    "on clients.idc = physique.idc ORDER BY physique.naissance");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("CIN"));
@@ -124,7 +145,9 @@ QSqlQueryModel * clientph::afficherr(QString r)
     model->setQuery("select clients.IDC, physique.CIN,physique.NOM, physique.PRENOM, physique.NAISSANCE, clients.TEL,clients.ADRESSE,clients.EMAIL"
                     " ,clients.IDF from clients join physique "
                     "on clients.idc = physique.idc "
-                    "WHERE physique.cin = '"+r+"'");
+                    "WHERE physique.cin LIKE '%"+r+"%' "
+                    " OR physique.nom LIKE '%"+r+"%' "
+                    " OR physique.prenom LIKE '%"+r+"%''");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("CIN"));

@@ -84,6 +84,12 @@ private slots:
 
     void on_pushButton_23_clicked();
 
+    void init();
+
+    void adjustTextColor();
+
+    void on_pushButton_2_clicked();
+
 private:
     Ui::Dialog *ui;
     clientmo tmp1;

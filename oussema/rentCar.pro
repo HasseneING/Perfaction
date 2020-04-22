@@ -1,6 +1,6 @@
 QT       += core gui sql
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
@@ -23,8 +23,7 @@ SOURCES += \
     connexion.cpp \
     dialog.cpp \
     main.cpp \
-    mainwindow.cpp \
-    stat/qcustomplot/qcustomplot.cpp
+    mainwindow.cpp
 
 HEADERS += \
     carte.h \
@@ -35,8 +34,7 @@ HEADERS += \
     dialog.cpp.autosave \
     dialog.h \
     dialog.h.autosave \
-    mainwindow.h \
-    stat/qcustomplot/qcustomplot.h
+    mainwindow.h
 
 FORMS += \
     dialog.ui \
@@ -48,3 +46,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES +=
+
+SUBDIRS +=
+
+DISTFILES +=

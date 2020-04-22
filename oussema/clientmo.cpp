@@ -82,6 +82,25 @@ QSqlQueryModel * clientmo::afficherid()
     return model;
 }
 
+QSqlQueryModel * clientmo::afficherprop()
+{
+    QSqlQueryModel * model= new QSqlQueryModel();
+
+    model->setQuery("select clients.IDC,moral.nom_soc,moral.code_fisc,moral.prop,clients.TEL,clients.ADRESSE,clients.email,clients.idf "
+                    "from clients join moral on clients.idc = moral.idc "
+                    "ORDER BY moral.prop ");
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM DE LA SOCIETE"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("CODE FISCALE"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("PROPRIETAIRE"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("TELEPHONE"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("ADRESSE"));
+    model->setHeaderData(6, Qt::Horizontal, QObject::tr("EMAIL"));
+    model->setHeaderData(7, Qt::Horizontal, QObject::tr("IDF "));
+
+    return model;
+}
+
 bool clientmo::supprimer(int id)
 {
     client::supprimer(id);
@@ -114,7 +133,9 @@ QSqlQueryModel * clientmo::afficherr(QString r)
 
     model->setQuery("select clients.IDC,moral.nom_soc,moral.code_fisc,moral.prop,clients.TEL,clients.ADRESSE,clients.email,clients.idf "
                     "from clients join moral on clients.idc = moral.idc "
-                    "WHERE moral.NOM_SOC = '"+r+"'");
+                    "WHERE moral.NOM_SOC LIKE '%"+r+"%' "
+                    " OR moral.code_fisc LIKE '%"+r+"%' "
+                    " OR moral.prop LIKE '%"+r+"%' ");
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM DE LA SOCIETE"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("CODE FISCALE"));

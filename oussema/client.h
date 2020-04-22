@@ -64,6 +64,7 @@ public:
     QSqlQueryModel * afficher();
     QSqlQueryModel * affichernom();
     QSqlQueryModel * afficherid();
+    QSqlQueryModel * afficherprop();
     QSqlQueryModel * afficherr(QString r);
     bool supprimer(int id);
     bool modifier(int i, int t, QString e, QString a, QString p, int code);
@@ -101,6 +102,7 @@ public:
     QSqlQueryModel * afficher();
     QSqlQueryModel * affichernom();
     QSqlQueryModel * afficherid();
+    QSqlQueryModel * afficherdate();
     QSqlQueryModel * afficherr(QString r);
     bool supprimer(int id);
     bool modifier(int i, int t, QString e, QString a, QString n, QString p, QDate nai);

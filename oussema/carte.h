@@ -23,6 +23,7 @@ public:
     bool ajouter(int id,QDate d);
     QSqlQueryModel * afficher();
     QSqlQueryModel * afficher1();
+    bool supprimer(int id);
 
 protected:
     int idf,pts;

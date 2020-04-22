@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
 
     if(c.ouvrir())
     {
-        msgBox.information(nullptr,QObject::tr("database is open"),QObject::tr("connection successful.\n"));
         w.show();
         return a.exec();
     }
