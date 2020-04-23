@@ -8,13 +8,18 @@ carte::carte()
 
 bool carte::ajouter(int id,QDate d)
 {
+    QSqlQuery query1;
+    query1.prepare("UPDATE clients SET IDF = :id where idc = :id");
+    query1.bindValue(":id", id);
+
+
     QSqlQuery query;
     query.prepare("INSERT INTO carte (IDF,CREATION) VALUES (:idf,:date)");
 
     query.bindValue(":idf", id);
     query.bindValue(":date", d);
 
-    return    query.exec();
+    return    query.exec() && query1.exec();
 }
 
 QSqlQueryModel * carte::afficher()

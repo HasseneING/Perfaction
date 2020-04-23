@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     carte.cpp \
+    chart.cpp \
     client.cpp \
     clientmo.cpp \
     clientph.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 
 HEADERS += \
     carte.h \
+    chart.h \
     client.h \
     clientmo.h \
     clientph.h \

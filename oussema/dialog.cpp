@@ -3,7 +3,10 @@
 #include "QTextEdit"
 #include <QMessageBox>
 #include <QValidator>
-#include <src/SmtpMime>
+#include <QPixmap>
+#include "chart.h"
+#include "CSmtp_v2_4_ssl/CSmtp.h"
+#include <iostream>
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -143,6 +146,23 @@ void Dialog:: init()
     ui->lineEdit_26->setText("recherche par le nom/code_f/prop");
     ui->lineEdit_25->setText("recherche par le nom/code_f/prop");
     ui->lineEdit_19->setText("recherche par le nom/code_f/prop");
+
+    QSqlQuery query;
+    query.prepare("SELECT count(idc) from CLIENTS where idf is null");
+    query.exec();
+    QString s;
+    while (query.next()) {
+        s = query.value(0).toString();
+    }
+    ui->label_9->setText(s);
+    QSqlQuery query1;
+    query1.prepare("SELECT count(idc) from CLIENTS where idf is not null");
+    query1.exec();
+    QString s1;
+    while (query1.next()) {
+        s1 = query1.value(0).toString();
+    }
+    ui->label_13->setText(s1);
 }
 
 Dialog::~Dialog()
@@ -234,6 +254,8 @@ void Dialog::on_pushButton_clicked()
     {
         QMessageBox msgBox;
         msgBox.information(nullptr,QObject::tr("Ajout d'une carte de fidelité."),QObject::tr("Carte ajouté !\n"));
+        ui->tableView2_3->setModel(tmp3.afficher());
+        ui->tableView_3->setModel(tmp4.afficher1());
         ui->stackedWidget_3->setCurrentIndex(0);
     }
     else
@@ -439,7 +461,7 @@ void Dialog::on_m_ajouter_2_clicked()
     ui->tableView2->setModel(tmp3.afficher());
     ui->tableView->setModel(tmp4.afficher1());
     QSqlQueryModel *model = new QSqlQueryModel;
-    model->setQuery("SELECT clients.IDC FROM clients");
+    model->setQuery("SELECT IDC FROM clients where idf is null");
     ui->comboBox->setModel(model);
 }
 
@@ -716,4 +738,87 @@ void Dialog::on_pushButton_2_clicked()
     case QMessageBox::Cancel:
         break;
     }
+}
+
+
+void Dialog::on_pushButton_3_clicked()
+{
+    QSqlQuery query;
+    query.prepare("SELECT count(idc) from CLIENTS where idf is null");
+    query.exec();
+    QString s;
+    while (query.next()) {
+        s = query.value(0).toString();
+    }
+    ui->label_9->setText(s);
+    QSqlQuery query1;
+    query1.prepare("SELECT count(idc) from CLIENTS where idf is not null");
+    query1.exec();
+    QString s1;
+    while (query1.next()) {
+        s1 = query1.value(0).toString();
+    }
+    ui->label_13->setText(s1);
+    QPaintEvent *p;
+    ui->widget->paintEvent(p);
+}
+
+void Dialog::on_pushButton_4_clicked()
+{
+    /*bool bError = false;
+
+    try
+    {
+        CSmtp mail;
+
+#define test_gmail_tls
+
+#if defined(test_gmail_tls)
+        mail.SetSMTPServer("smtp.gmail.com",587);
+        mail.SetSecurityType(USE_TLS);
+#elif defined(test_gmail_ssl)
+        mail.SetSMTPServer("smtp.gmail.com",465);
+        mail.SetSecurityType(USE_SSL);
+#elif defined(test_hotmail_TLS)
+        mail.SetSMTPServer("smtp.live.com",25);
+        mail.SetSecurityType(USE_TLS);
+#elif defined(test_aol_tls)
+        mail.SetSMTPServer("smtp.aol.com",587);
+        mail.SetSecurityType(USE_TLS);
+#elif defined(test_yahoo_ssl)
+        mail.SetSMTPServer("plus.smtp.mail.yahoo.com",465);
+        mail.SetSecurityType(USE_SSL);
+#endif
+
+        mail.SetLogin("rentcar.projet@gmail.com");
+        mail.SetPassword("azer123@");
+        mail.SetSenderName("RENTINI");
+        mail.SetSenderMail("rentcar.projet@gmail.com");
+        mail.SetReplyTo("elbeuff@gmail.com");
+        mail.SetSubject("The message");
+        mail.AddRecipient("elbeuff@gmail.com");
+        mail.SetXPriority(XPRIORITY_NORMAL);
+        mail.SetXMailer("The Bat! (v3.02) Professional");
+        mail.AddMsgLine("Hello,");
+        mail.AddMsgLine("");
+        mail.AddMsgLine("...");
+        mail.AddMsgLine("How are you today?");
+        mail.AddMsgLine("");
+        mail.AddMsgLine("Regards");
+        mail.ModMsgLine(5,"regards");
+        mail.DelMsgLine(2);
+        mail.AddMsgLine("User");
+
+        //mail.AddAttachment("../test1.jpg");
+        //mail.AddAttachment("c:\\test2.exe");
+        //mail.AddAttachment("c:\\test3.txt");
+        mail.Send();
+    }
+    catch(ECSmtp e)
+    {
+        std::cout << "Error: " << e.GetErrorText().c_str() << ".\n";
+        bError = true;
+    }
+    if(!bError)
+        std::cout << "Mail was send successfully.\n";*/
 }
