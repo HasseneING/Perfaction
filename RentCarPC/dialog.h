@@ -46,8 +46,6 @@ private slots:
 
     void on_PcSearch_clicked();
 
-    void on_ModifierOrdinateur_clicked();
-
     void on_SupprimerOrdinateur_clicked();
 
     void on_IDFOURSEARCH_clicked();
@@ -63,6 +61,24 @@ private slots:
     void on_IDFOURSEARCH_3_clicked();
 
     void on_SearchCar_3_clicked();
+
+    void on_AnnulerVoit_2_clicked();
+
+    void on_AddVoit_2_clicked();
+
+    void on_AnnulerOrd_2_clicked();
+
+    void on_Add_Ord_2_clicked();
+
+    void on_MacpcRecherche_textChanged(const QString &arg1);
+
+    void on_SearchCarMat_textChanged(const QString &arg1);
+
+    void on_AddFournisseur_2_clicked();
+
+    void on_AnnulerFour_2_clicked();
+
+    void on_IDFOUR_textChanged(const QString &arg1);
 
 private:
     Ui::Dialog *ui;

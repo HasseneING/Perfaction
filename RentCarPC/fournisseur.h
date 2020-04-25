@@ -30,9 +30,12 @@ public:
 
     bool ajouterFour();
     QSqlQueryModel* AfficherFour();
-    QSqlQueryModel* SearchFour(int);
+    QSqlQueryModel* SearchFour(QString);
 
     bool SupprimerFour(int);
+    bool ModifierFour();
+
 };
+
 
 #endif // FOURNISSEUR_H

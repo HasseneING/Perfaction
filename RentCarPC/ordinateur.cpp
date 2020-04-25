@@ -63,7 +63,9 @@ model->setQuery("SELECT * FROM ORDINATEUR");
 QSqlQueryModel* ordinateur::SearchOrd(QString mac)
 {
     QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("SELECT * FROM ORDINATEUR where MAC='"+mac+"'");
+    model->setQuery("SELECT * FROM ORDINATEUR where UPPER(MAC) like UPPER('%"+mac+"%') OR CPU like UPPER('%"+mac+"%') OR UPPER(GPU) like UPPER('%"+mac+"%') OR UPPER(RAM) like UPPER('%"+mac+"%') OR UPPER(DESCRIP) like UPPER('%"+mac+"%')  ");
+
+
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("MAC"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("CPU"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("GPU"));
@@ -78,4 +80,16 @@ bool ordinateur::SupprimerOrd(QString mac)
     query.bindValue(":mac",mac);
     return  query.exec();
 
+}
+
+bool ordinateur::ModifierOrd()
+{
+    QSqlQuery query;
+    query.prepare("UPDATE ORDINATEUR SET MAC=:M, CPU=:CPU, GPU=:GPU, RAM=:RAM, DESCRIP=:desc where MAC=:M");
+    query.bindValue(":M",MAC);
+    query.bindValue(":CPU",CPU);
+    query.bindValue(":GPU",GPU);
+    query.bindValue(":RAM",RAM);
+    query.bindValue(":desc",desc);
+    return query.exec();
 }

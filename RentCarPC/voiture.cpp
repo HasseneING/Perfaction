@@ -198,7 +198,22 @@ QSqlQueryModel *voiture::SearchVoit(QString mat)
 {
     QSqlQueryModel* model = new QSqlQueryModel;
 
-    model->setQuery("SELECT * FROM VOITURE where MATRICULE='"+mat+"'");
+    model->setQuery("SELECT * FROM VOITURE where UPPER(MATRICULE) like upper('%"+mat+"%')"
+                    "OR UPPER(MARQUE) like upper('%"+mat+"%')"
+                    "OR UPPER(MODELE) like upper('%"+mat+"%')"
+                    "OR UPPER(NBPLACE) like upper('%"+mat+"%')"
+                    "OR UPPER(PUISSANCE) like upper('%"+mat+"%')"
+                    "OR UPPER(CONSOMMATION) like upper('%"+mat+"%')"
+                    "OR UPPER(DESCRIPTION) like upper('%"+mat+"%')"
+                    "OR UPPER(CATG) like upper('%"+mat+"%')"
+                    "OR UPPER(DATEACQUIS) like upper('%"+mat+"%')"
+                    "OR UPPER(COULEUR) like upper('%"+mat+"%')"
+                    "OR UPPER(DISPO) like upper('%"+mat+"%')"
+                    "OR UPPER(FORFAITJOUR) like upper('%"+mat+"%')"
+                    "OR UPPER(FORFAITSEM) like upper('%"+mat+"%')"
+                    "OR UPPER(FORFAITMOIS) like upper('%"+mat+"%')");
+
+
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("Matricule"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("Marque"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("Modele"));
@@ -212,5 +227,27 @@ bool voiture::SupprimerVoit(QString mat)
     QSqlQuery query;
     query.prepare("Delete from VOITURE where MATRICULE= :MATRICULE");
     query.bindValue(":MATRICULE",mat);
+    return  query.exec();
+}
+
+bool voiture::modifierVoit(QString Mat)
+{
+    QSqlQuery query;
+
+    query.prepare("UPDATE VOITURE SET MATRICULE=:MAT, MARQUE=:MARQUE, MODELE=:MODELE, NBPLACE=:NBPLACE, PUISSANCE=:PUISSANCE, CONSOMMATION=:CONSOMMATION, DESCRIPTION=:DESCRIPTION, CATG=:CATG, DATEACQUIS=:DATEACQUIS, COULEUR=:COULEUR, DISPO=:DISPO, FORFAITJOUR=:FORFAITJOUR, FORFAITSEM=:FORFAITSEM, FORFAITMOIS=:FORFAITMOIS where MATRICULE=:MAT");
+    query.bindValue(":MAT",Mat);
+    query.bindValue(":MARQUE",Marque);
+    query.bindValue(":MODELE",Modele);
+    query.bindValue(":NBPLACE",NbPlace);
+    query.bindValue(":PUISSANCE",Puissance);
+    query.bindValue(":CONSOMMATION",Consommation);
+    query.bindValue(":DESCRIPTION",Description);
+    query.bindValue(":CATG",CatG);
+    query.bindValue(":DATEACQUIS",DateAcquis);
+    query.bindValue(":COULEUR",Couleur);
+    query.bindValue(":DISPO",Dispo);
+    query.bindValue(":FORFAITJOUR",ForfaitJour);
+    query.bindValue(":FORFAITSEM",ForfaitSem);
+    query.bindValue(":FORFAITMOIS",ForfaitMois);
     return  query.exec();
 }

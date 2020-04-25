@@ -29,6 +29,7 @@ public:
     QSqlQueryModel* AfficherOrd();
     QSqlQueryModel* SearchOrd(QString);
     bool SupprimerOrd(QString);
+    bool ModifierOrd();
 
 
 };

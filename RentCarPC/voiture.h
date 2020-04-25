@@ -73,6 +73,8 @@ public:
 
 
   bool SupprimerVoit(QString);
+
+  bool modifierVoit(QString);
 };
 
 #endif // VOITURE_H

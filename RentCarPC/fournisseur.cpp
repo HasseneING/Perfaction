@@ -78,11 +78,10 @@ QSqlQueryModel *fournisseur::AfficherFour()
       return model;
 }
 
-QSqlQueryModel *fournisseur::SearchFour(int id)
+QSqlQueryModel *fournisseur::SearchFour(QString id2)
 {
     QSqlQueryModel* model = new QSqlQueryModel;
-    QString id2=QString::number(id);
-    QString quer="SELECT * FROM FOURNISSEUR where ID ='"+id2+"'";
+    QString quer="SELECT * FROM FOURNISSEUR where UPPER(ID) like UPPER('%"+id2+"%') OR UPPER(SOCIETE) like UPPER('%"+id2+"%') OR UPPER(ADRESSE) like UPPER('%"+id2+"%') OR UPPER(TELEPHONE) like UPPER('%"+id2+"%')  OR UPPER(EMAIL) like UPPER('%"+id2+"%') ";
     model->setQuery(quer);
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("SOCIETE"));
@@ -99,6 +98,20 @@ bool fournisseur::SupprimerFour(int id)
         query.bindValue(":id",id);
         return  query.exec();
 
+}
+
+bool fournisseur::ModifierFour()
+{
+
+    QSqlQuery query;
+    query.prepare("UPDATE FOURNISSEUR SET ID=:ID, SOCIETE=:SOCIETE, ADRESSE=:ADRESSE, TELEPHONE=:TELEPHONE, EMAIL=:EMAIL WHERE ID=:ID");
+
+    query.bindValue(":ID",ID);
+    query.bindValue(":SOCIETE",SOCIETE);
+    query.bindValue(":ADRESSE",ADRESSE);
+    query.bindValue(":TELEPHONE",TELEPHONE);
+    query.bindValue(":EMAIL",EMAIL);
+    return query.exec();
 }
 
 fournisseur::fournisseur()
