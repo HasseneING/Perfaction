@@ -142,12 +142,12 @@ QSqlQueryModel * clientph::afficherr(QString r)
 {
     QSqlQueryModel * model= new QSqlQueryModel();
 
-    model->setQuery("select clients.IDC, physique.CIN,physique.NOM, physique.PRENOM, physique.NAISSANCE, clients.TEL,clients.ADRESSE,clients.EMAIL"
-                    " ,clients.IDF from clients join physique "
-                    "on clients.idc = physique.idc "
-                    "WHERE physique.cin LIKE '%"+r+"%' "
+    model->setQuery("select clients.IDC, physique.CIN,physique.NOM, physique.PRENOM, physique.NAISSANCE, clients.TEL,clients.ADRESSE,clients.EMAIL, "
+                    " clients.IDF from clients join physique "
+                    " on clients.idc = physique.idc "
+                    " WHERE physique.cin LIKE '%"+r+"%' "
                     " OR physique.nom LIKE '%"+r+"%' "
-                    " OR physique.prenom LIKE '%"+r+"%''");
+                    " OR physique.prenom LIKE '%"+r+"%' ");
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("CIN"));

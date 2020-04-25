@@ -1,9 +1,9 @@
 #include "chart.h"
-
 #include <QSqlQuery>
 #include <QVariant>
 #include <QColor>
 #include <QPainter>
+
 chart::chart(QWidget *parent) : QWidget(parent)
 {
 

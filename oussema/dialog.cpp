@@ -56,51 +56,51 @@ void Dialog:: init()
 
     QHeaderView *verticalHeader = ui->tableView_5->verticalHeader();
     verticalHeader->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader->setDefaultSectionSize(20);
+    verticalHeader->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader1 = ui->tableView_4->verticalHeader();
     verticalHeader1->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader1->setDefaultSectionSize(20);
+    verticalHeader1->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader2 = ui->tableView_7->verticalHeader();
     verticalHeader2->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader2->setDefaultSectionSize(20);
+    verticalHeader2->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader3 = ui->tableView_77->verticalHeader();
     verticalHeader3->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader3->setDefaultSectionSize(20);
+    verticalHeader3->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader4 = ui->tableView_6->verticalHeader();
     verticalHeader4->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader4->setDefaultSectionSize(20);
+    verticalHeader4->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader5 = ui->tableView_9->verticalHeader();
     verticalHeader5->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader5->setDefaultSectionSize(20);
+    verticalHeader5->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader6 = ui->tableView2_2->verticalHeader();
     verticalHeader6->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader6->setDefaultSectionSize(20);
+    verticalHeader6->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader7 = ui->tableView_2->verticalHeader();
     verticalHeader7->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader7->setDefaultSectionSize(20);
+    verticalHeader7->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader8 = ui->tableView2_3->verticalHeader();
     verticalHeader8->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader8->setDefaultSectionSize(20);
+    verticalHeader8->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader9 = ui->tableView_3->verticalHeader();
     verticalHeader9->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader9->setDefaultSectionSize(20);
+    verticalHeader9->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader10 = ui->tableView_2->verticalHeader();
     verticalHeader10->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader10->setDefaultSectionSize(20);
+    verticalHeader10->setDefaultSectionSize(40);
 
     QHeaderView *verticalHeader11 = ui->tableView->verticalHeader();
     verticalHeader11->setSectionResizeMode(QHeaderView::Fixed);
-    verticalHeader11->setDefaultSectionSize(20);
+    verticalHeader11->setDefaultSectionSize(40);
 
     //INT
     ui->lineEdit_18->setValidator( new QIntValidator(0,10, this) );
@@ -256,6 +256,7 @@ void Dialog::on_pushButton_clicked()
         msgBox.information(nullptr,QObject::tr("Ajout d'une carte de fidelité."),QObject::tr("Carte ajouté !\n"));
         ui->tableView2_3->setModel(tmp3.afficher());
         ui->tableView_3->setModel(tmp4.afficher1());
+        ref();
         ui->stackedWidget_3->setCurrentIndex(0);
     }
     else
@@ -595,7 +596,7 @@ void Dialog::on_comboBox_15_textActivated(const QString &arg1)
     }
     else if(arg1 == "Trier par proprietaire")
     {
-        ui->tableView_7->setModel(tmp1.afficherprop());
+        ui->tableView_5->setModel(tmp1.afficherprop());
     }
 }
 
@@ -611,7 +612,7 @@ void Dialog::on_comboBox_20_textActivated(const QString &arg1)
     }
     else if(arg1 == "Trier par proprietaire")
     {
-        ui->tableView_7->setModel(tmp1.afficherprop());
+        ui->tableView_4->setModel(tmp1.afficherprop());
     }
 }
 
@@ -643,7 +644,7 @@ void Dialog::on_comboBox_30_currentTextChanged(const QString &arg1)
     }
     else if(arg1 == "Trier par date")
     {
-        ui->tableView_9->setModel(tmp2.afficherdate());
+        ui->tableView_77->setModel(tmp2.afficherdate());
     }
 }
 
@@ -659,7 +660,7 @@ void Dialog::on_comboBox_29_currentTextChanged(const QString &arg1)
     }
     else if(arg1 == "Trier par date")
     {
-        ui->tableView_9->setModel(tmp2.afficherdate());
+        ui->tableView_6->setModel(tmp2.afficherdate());
     }
 }
 
@@ -722,6 +723,7 @@ void Dialog::on_pushButton_2_clicked()
             msgBox.information(nullptr,QObject::tr("Sppression de la carte."),QObject::tr("Carte de fidelite supprimer !\n"));
             ui->tableView2_2->setModel(tmp3.afficher());
             ui->tableView_2->setModel(tmp4.afficher1());
+            ref();
             ui->stackedWidget_3->setCurrentIndex(2);
             QSqlQueryModel *model = new QSqlQueryModel;
             model->setQuery("SELECT clients.IDC FROM clients join carte on clients.idc = carte.idf");
@@ -740,8 +742,7 @@ void Dialog::on_pushButton_2_clicked()
     }
 }
 
-
-void Dialog::on_pushButton_3_clicked()
+void Dialog::ref()
 {
     QSqlQuery query;
     query.prepare("SELECT count(idc) from CLIENTS where idf is null");
@@ -759,8 +760,6 @@ void Dialog::on_pushButton_3_clicked()
         s1 = query1.value(0).toString();
     }
     ui->label_13->setText(s1);
-    QPaintEvent *p;
-    ui->widget->paintEvent(p);
 }
 
 void Dialog::on_pushButton_4_clicked()

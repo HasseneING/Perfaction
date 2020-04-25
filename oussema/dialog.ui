@@ -1357,7 +1357,7 @@
       <enum>QTabWidget::Triangular</enum>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>3</number>
      </property>
      <property name="elideMode">
       <enum>Qt::ElideMiddle</enum>
@@ -1425,7 +1425,7 @@ QPushButton::pressed
         </rect>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="ajouter">
         <widget class="QLabel" name="label_14">
@@ -2009,9 +2009,9 @@ QPushButton::pressed
         <widget class="QComboBox" name="comboBox_20">
          <property name="geometry">
           <rect>
-           <x>1040</x>
+           <x>970</x>
            <y>100</y>
-           <width>211</width>
+           <width>281</width>
            <height>41</height>
           </rect>
          </property>
@@ -2040,12 +2040,12 @@ QPushButton::pressed
          </property>
          <item>
           <property name="text">
-           <string>Trier par id</string>
+           <string>Trier par proprietaire</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Trier par proprietaire</string>
+           <string>Trier par id</string>
           </property>
          </item>
          <item>
@@ -2636,9 +2636,9 @@ QPushButton::pressed
         <widget class="QComboBox" name="comboBox_19">
          <property name="geometry">
           <rect>
-           <x>1040</x>
+           <x>970</x>
            <y>100</y>
-           <width>211</width>
+           <width>281</width>
            <height>41</height>
           </rect>
          </property>
@@ -2667,12 +2667,12 @@ QPushButton::pressed
          </property>
          <item>
           <property name="text">
-           <string>Trier par id</string>
+           <string>Trier par proprietaire</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Trier par proprietaire</string>
+           <string>Trier par id</string>
           </property>
          </item>
          <item>
@@ -2770,9 +2770,9 @@ QPushButton::pressed
         <widget class="QComboBox" name="comboBox_15">
          <property name="geometry">
           <rect>
-           <x>1060</x>
+           <x>980</x>
            <y>100</y>
-           <width>201</width>
+           <width>281</width>
            <height>41</height>
           </rect>
          </property>
@@ -2801,12 +2801,12 @@ QPushButton::pressed
          </property>
          <item>
           <property name="text">
-           <string>Trier par id</string>
+           <string>Trier par proprietaire</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>Trier par proprietaire</string>
+           <string>Trier par id</string>
           </property>
          </item>
          <item>
@@ -3274,7 +3274,7 @@ QPushButton::pressed
         </palette>
        </property>
        <property name="currentIndex">
-        <number>3</number>
+        <number>4</number>
        </property>
        <widget class="QWidget" name="ajouter_2">
         <widget class="QLabel" name="label_19">
@@ -5015,7 +5015,7 @@ QPushButton::pressed
         </rect>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <widget class="QWidget" name="page">
         <widget class="QLabel" name="label_24">
@@ -5643,28 +5643,6 @@ QPushButton::pressed
          <weight>75</weight>
          <bold>true</bold>
         </font>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="geometry">
-        <rect>
-         <x>1630</x>
-         <y>40</y>
-         <width>93</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">#pushButton_3{
-background-color : transparent;
-border-image : url(C:/Users/souso/Desktop/reentcar/assets/refresh.png);
-background : none;
-border : none;
-background-repeat : none;
-}</string>
        </property>
        <property name="text">
         <string/>

@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     setFixedSize(1900,1000);
     ui->setupUi(this);
-    QPixmap bkgnd("C:/Users/souso/Desktop/rentcar/assets/login.jpg");
+    QPixmap bkgnd("C:/Users/souso/Desktop/rentcar/assets/start.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, bkgnd);
