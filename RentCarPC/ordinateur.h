@@ -26,7 +26,7 @@ public:
     void setDesc(QString);
 
     bool ajouterOrd();
-    QSqlQueryModel* AfficherOrd();
+    QSqlQueryModel* AfficherOrd(QString);
     QSqlQueryModel* SearchOrd(QString);
     bool SupprimerOrd(QString);
     bool ModifierOrd();

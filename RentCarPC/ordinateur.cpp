@@ -1,6 +1,7 @@
 #include "ordinateur.h"
 #include <QSqlQuery>
 #include <QVariant>
+#include <QDebug>
 
 ordinateur::ordinateur()
 {
@@ -48,11 +49,12 @@ bool ordinateur::ajouterOrd(){
 
 
 
-QSqlQueryModel* ordinateur::AfficherOrd(){
+QSqlQueryModel* ordinateur::AfficherOrd(QString var){
 
 QSqlQueryModel* model = new QSqlQueryModel;
-
-model->setQuery("SELECT * FROM ORDINATEUR");
+QString Quer="SELECT * FROM ORDINATEUR ORDER BY "+var+"";
+qDebug()<<Quer;
+model->setQuery(Quer);
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("MAC"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("CPU"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("GPU"));

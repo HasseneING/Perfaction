@@ -182,11 +182,13 @@ bool voiture::AjouterVoit()
 
 
 
-QSqlQueryModel* voiture::AfficherVoit(){
+QSqlQueryModel* voiture::AfficherVoit(QString var){
 
 QSqlQueryModel* model = new QSqlQueryModel;
+QString Quer="SELECT * FROM VOITURE ORDER BY "+var+"";
+qDebug()<< Quer;
+model->setQuery(Quer    );
 
-model->setQuery("SELECT * FROM VOITURE");
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("Matricule"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("Marque"));
   model->setHeaderData(2, Qt::Horizontal, QObject::tr("Modele"));
@@ -251,3 +253,4 @@ bool voiture::modifierVoit(QString Mat)
     query.bindValue(":FORFAITMOIS",ForfaitMois);
     return  query.exec();
 }
+

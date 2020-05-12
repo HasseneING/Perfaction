@@ -67,7 +67,7 @@ public:
 
   bool AjouterVoit();
 
-  QSqlQueryModel* AfficherVoit();
+  QSqlQueryModel* AfficherVoit(QString);
 
   QSqlQueryModel* SearchVoit(QString);
 
@@ -75,6 +75,8 @@ public:
   bool SupprimerVoit(QString);
 
   bool modifierVoit(QString);
+
+  //void SortByHeader(int);
 };
 
 #endif // VOITURE_H

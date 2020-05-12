@@ -29,7 +29,7 @@ public:
 
 
     bool ajouterFour();
-    QSqlQueryModel* AfficherFour();
+    QSqlQueryModel* AfficherFour(QString);
     QSqlQueryModel* SearchFour(QString);
 
     bool SupprimerFour(int);

@@ -33,45 +33,6 @@
     <number>2</number>
    </property>
    <widget class="QWidget" name="page">
-    <widget class="QComboBox" name="comboBox_4">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>110</y>
-       <width>131</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="maxVisibleItems">
-      <number>3</number>
-     </property>
-     <property name="insertPolicy">
-      <enum>QComboBox::InsertAtTop</enum>
-     </property>
-     <item>
-      <property name="text">
-       <string>trier par n° poste</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>trier par matricule</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>trier par agent</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>trier par date d'ajout</string>
-      </property>
-     </item>
-    </widget>
     <widget class="QLineEdit" name="MacpcRecherche">
      <property name="geometry">
       <rect>
@@ -279,35 +240,6 @@ QPushButton::pressed
       <string>Gestion des voitures</string>
      </property>
     </widget>
-    <widget class="QComboBox" name="Trie">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>110</y>
-       <width>141</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="maxVisibleItems">
-      <number>3</number>
-     </property>
-     <property name="insertPolicy">
-      <enum>QComboBox::InsertAtTop</enum>
-     </property>
-     <item>
-      <property name="text">
-       <string>trier par date d'ajout</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>trier par matricule</string>
-      </property>
-     </item>
-    </widget>
     <widget class="QLineEdit" name="SearchCarMat">
      <property name="geometry">
       <rect>
@@ -479,35 +411,6 @@ QPushButton::pressed
     </widget>
    </widget>
    <widget class="QWidget" name="page_3">
-    <widget class="QComboBox" name="comboBox_3">
-     <property name="geometry">
-      <rect>
-       <x>690</x>
-       <y>110</y>
-       <width>131</width>
-       <height>22</height>
-      </rect>
-     </property>
-     <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
-     </property>
-     <property name="maxVisibleItems">
-      <number>3</number>
-     </property>
-     <property name="insertPolicy">
-      <enum>QComboBox::InsertAtTop</enum>
-     </property>
-     <item>
-      <property name="text">
-       <string>trier par date d'ajout</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>trier par matricule</string>
-      </property>
-     </item>
-    </widget>
     <widget class="QLineEdit" name="IDFOUR">
      <property name="geometry">
       <rect>
@@ -687,6 +590,44 @@ QPushButton::pressed
      </property>
      <property name="text">
       <string>Modifier</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="MailFour">
+     <property name="geometry">
+      <rect>
+       <x>690</x>
+       <y>110</y>
+       <width>131</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(42, 95, 113, 255),stop:1 rgba(12, 53, 97, 255));
+	color: #fff;
+	border: 0px;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+QPushButton::hover
+{
+	background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(167, 214, 50, 255),stop:1 rgba(98, 169, 67, 255));
+	color: #fff;
+
+}
+QPushButton::pressed
+{
+	background-color: qlineargradient(spread:pad, x1:1, y1:0, x2:1, y2:1, stop:0 rgba(147, 194, 30, 255),stop:1 rgba(78, 149, 47, 255));
+	color: #fff;
+	border: 0px;
+	border-radius: 5px;
+	padding: 5px;
+
+}</string>
+     </property>
+     <property name="text">
+      <string>Envoyer un email</string>
      </property>
     </widget>
    </widget>

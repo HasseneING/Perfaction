@@ -65,11 +65,11 @@ bool fournisseur::ajouterFour()
     return query.exec();
 }
 
-QSqlQueryModel *fournisseur::AfficherFour()
+QSqlQueryModel *fournisseur::AfficherFour(QString var)
 {
     QSqlQueryModel* model = new QSqlQueryModel;
-
-    model->setQuery("SELECT * FROM FOURNISSEUR");
+    QString Quer="SELECT * FROM FOURNISSEUR ORDER BY "+var+"";
+    model->setQuery(Quer);
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("SOCIETE"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("ADRESSE"));

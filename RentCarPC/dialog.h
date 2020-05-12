@@ -17,6 +17,7 @@ class Dialog : public QDialog
 public:
     explicit Dialog(QWidget *parent = nullptr);
     ~Dialog();
+    int flip;
 
 private slots:
 
@@ -79,6 +80,13 @@ private slots:
     void on_AnnulerFour_2_clicked();
 
     void on_IDFOUR_textChanged(const QString &arg1);
+
+    void SortByHeader(int);
+    void SortByHeader2(int);
+    void SortByHeader3(int);
+
+
+    void on_MailFour_clicked();
 
 private:
     Ui::Dialog *ui;
