@@ -90,9 +90,13 @@ private slots:
 
     void on_pushButton_2_clicked();
 
-    void on_pushButton_4_clicked();
-
     void ref();
+
+    void mail(QString email,QString sub,QString obj);
+
+    void mailSent(QString);
+
+    void on_m_afficher_3_clicked();
 
 public:
     void set_lab(QString a,QString b);

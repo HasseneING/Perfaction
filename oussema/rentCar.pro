@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql network printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -24,7 +24,8 @@ SOURCES += \
     connexion.cpp \
     dialog.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    smtp.cpp
 
 HEADERS += \
     carte.h \
@@ -36,7 +37,8 @@ HEADERS += \
     dialog.cpp.autosave \
     dialog.h \
     dialog.h.autosave \
-    mainwindow.h
+    mainwindow.h \
+    smtp.h
 
 FORMS += \
     dialog.ui \

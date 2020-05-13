@@ -5,8 +5,11 @@
 #include <QValidator>
 #include <QPixmap>
 #include "chart.h"
-#include "CSmtp_v2_4_ssl/CSmtp.h"
 #include <iostream>
+#include "smtp.h"
+#include "QPdfWriter"
+#include "QPainter"
+#include <QPrinter>
 
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
@@ -254,6 +257,16 @@ void Dialog::on_pushButton_clicked()
     {
         QMessageBox msgBox;
         msgBox.information(nullptr,QObject::tr("Ajout d'une carte de fidelité."),QObject::tr("Carte ajouté !\n"));
+        QSqlQuery query;
+        query.prepare("SELECT email from CLIENTS where idc = :id");
+        query.bindValue(":id",id);
+        QString email ;
+        query.exec();
+        while (query.next()) {
+            email = query.value(0).toString();
+        }
+        mail(email,"Carte de fidelite !","Chers clients votre carte de fidelite a etait creer avec succes \n"
+                                         "et pour le moment vous avez 0 points de fidelite");
         ui->tableView2_3->setModel(tmp3.afficher());
         ui->tableView_3->setModel(tmp4.afficher1());
         ref();
@@ -264,6 +277,19 @@ void Dialog::on_pushButton_clicked()
         QMessageBox msgBox;
         msgBox.critical(nullptr,QObject::tr("Ajout d'une carte de fidelité."),QObject::tr("Ce client a déja une carte de fidelité !\n"));
     }
+}
+
+void Dialog::mail(QString email,QString sub,QString obj)
+{
+    Smtp* smtp = new Smtp("rentcar.projet@gmail.com", "azer123@", "smtp.gmail.com");
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+    smtp->sendMail(email , sub,obj);
+}
+
+void Dialog::mailSent(QString status)
+{
+    if(status == "Message sent")
+        QMessageBox::information(nullptr,QObject::tr("RentCar mailing !"),QObject::tr("Un email est envoye a votre client pour l informer de\nsa nouvelle carte de fidelite!\n"));
 }
 
 void Dialog::on_m_supprimer_clicked()
@@ -723,6 +749,16 @@ void Dialog::on_pushButton_2_clicked()
             msgBox.information(nullptr,QObject::tr("Sppression de la carte."),QObject::tr("Carte de fidelite supprimer !\n"));
             ui->tableView2_2->setModel(tmp3.afficher());
             ui->tableView_2->setModel(tmp4.afficher1());
+            QSqlQuery query;
+            query.prepare("SELECT email from CLIENTS where idc = :id");
+            query.bindValue(":id",id);
+            QString email ;
+            query.exec();
+            while (query.next()) {
+                email = query.value(0).toString();
+            }
+            mail(email,"Carte de fidelite !","Chers clients votre carte de fidelite a etait supprimer !\n"
+                                             "Nous esperons nous vous revoir bientot !");
             ref();
             ui->stackedWidget_3->setCurrentIndex(2);
             QSqlQueryModel *model = new QSqlQueryModel;
@@ -762,62 +798,57 @@ void Dialog::ref()
     ui->label_13->setText(s1);
 }
 
-void Dialog::on_pushButton_4_clicked()
+void Dialog::on_m_afficher_3_clicked()
 {
-    /*bool bError = false;
+    QString strStream;
+    QTextStream out(&strStream);
 
-    try
-    {
-        CSmtp mail;
+    const int rowCount = ui->tableView_5->model()->rowCount();
+    const int columnCount = ui->tableView_5->model()->columnCount();
 
-#define test_gmail_tls
+    out <<  "<html>\n"
+            "<head>\n"
+            "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+         <<  QString("<title>%1</title>\n").arg("strTitle")
+          <<  "</head>\n"
+              "<body bgcolor=#ffffff link=#5000A0>\n"
+              "<center> <H1>Liste desClients moral</H1><table border=1 cellspacing=0 cellpadding=2>\n";
 
-#if defined(test_gmail_tls)
-        mail.SetSMTPServer("smtp.gmail.com",587);
-        mail.SetSecurityType(USE_TLS);
-#elif defined(test_gmail_ssl)
-        mail.SetSMTPServer("smtp.gmail.com",465);
-        mail.SetSecurityType(USE_SSL);
-#elif defined(test_hotmail_TLS)
-        mail.SetSMTPServer("smtp.live.com",25);
-        mail.SetSecurityType(USE_TLS);
-#elif defined(test_aol_tls)
-        mail.SetSMTPServer("smtp.aol.com",587);
-        mail.SetSecurityType(USE_TLS);
-#elif defined(test_yahoo_ssl)
-        mail.SetSMTPServer("plus.smtp.mail.yahoo.com",465);
-        mail.SetSecurityType(USE_SSL);
-#endif
 
-        mail.SetLogin("rentcar.projet@gmail.com");
-        mail.SetPassword("azer123@");
-        mail.SetSenderName("RENTINI");
-        mail.SetSenderMail("rentcar.projet@gmail.com");
-        mail.SetReplyTo("elbeuff@gmail.com");
-        mail.SetSubject("The message");
-        mail.AddRecipient("elbeuff@gmail.com");
-        mail.SetXPriority(XPRIORITY_NORMAL);
-        mail.SetXMailer("The Bat! (v3.02) Professional");
-        mail.AddMsgLine("Hello,");
-        mail.AddMsgLine("");
-        mail.AddMsgLine("...");
-        mail.AddMsgLine("How are you today?");
-        mail.AddMsgLine("");
-        mail.AddMsgLine("Regards");
-        mail.ModMsgLine(5,"regards");
-        mail.DelMsgLine(2);
-        mail.AddMsgLine("User");
+    out << "<thead><tr bgcolor=#f0f0f0> <th>Numero</th>";
+    for (int column = 0; column < columnCount; column++)
+        if (!ui->tableView_5->isColumnHidden(column))
+            out << QString("<th>%1</th>").arg(ui->tableView_5->model()->headerData(column, Qt::Horizontal).toString());
+    out << "</tr></thead>\n";
 
-        //mail.AddAttachment("../test1.jpg");
-        //mail.AddAttachment("c:\\test2.exe");
-        //mail.AddAttachment("c:\\test3.txt");
-        mail.Send();
+
+    for (int row = 0; row < rowCount; row++) {
+        out << "<tr> <td bkcolor=0>" << row+1 <<"</td>";
+        for (int column = 0; column < columnCount; column++) {
+            if (!ui->tableView_5->isColumnHidden(column)) {
+                QString data = ui->tableView_5->model()->data(ui->tableView_5->model()->index(row, column)).toString().simplified();
+                out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+            }
+        }
+        out << "</tr>\n";
     }
-    catch(ECSmtp e)
-    {
-        std::cout << "Error: " << e.GetErrorText().c_str() << ".\n";
-        bError = true;
-    }
-    if(!bError)
-        std::cout << "Mail was send successfully.\n";*/
+    out <<  "</table> </center>\n"
+            "</body>\n"
+            "</html>\n";
+
+    QPrinter printer(QPrinter::PrinterResolution);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFileName("C:/Users/souso/Desktop/reentcar/PDF/moral.pdf");
+
+    QTextDocument doc;
+    doc.setHtml(strStream);
+    doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+    doc.print(&printer);
 }
+
+
+
+
+
+
