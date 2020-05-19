@@ -18,7 +18,6 @@ public:
     explicit Dialog(QWidget *parent = nullptr);
     ~Dialog();
     int flip;
-
 private slots:
 
     void on_FournisseurWin_clicked();
@@ -87,6 +86,11 @@ private slots:
 
 
     void on_MailFour_clicked();
+    void mail(QString,QString,QString);
+    void mailSent(QString);
+
+
+    void on_MARQUE_currentTextChanged(const QString &arg1);
 
 private:
     Ui::Dialog *ui;

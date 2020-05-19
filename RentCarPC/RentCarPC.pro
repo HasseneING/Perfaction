@@ -22,18 +22,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     ordinateur.cpp \
-    src/emailaddress.cpp \
-    src/mimeattachment.cpp \
-    src/mimecontentformatter.cpp \
-    src/mimefile.cpp \
-    src/mimehtml.cpp \
-    src/mimeinlinefile.cpp \
-    src/mimemessage.cpp \
-    src/mimemultipart.cpp \
-    src/mimepart.cpp \
-    src/mimetext.cpp \
-    src/quotedprintable.cpp \
-    src/smtpclient.cpp \
+    smtp.cpp \
     voiture.cpp
 
 HEADERS += \
@@ -42,20 +31,7 @@ HEADERS += \
     fournisseur.h \
     mainwindow.h \
     ordinateur.h \
-    src/SmtpMime \
-    src/emailaddress.h \
-    src/mimeattachment.h \
-    src/mimecontentformatter.h \
-    src/mimefile.h \
-    src/mimehtml.h \
-    src/mimeinlinefile.h \
-    src/mimemessage.h \
-    src/mimemultipart.h \
-    src/mimepart.h \
-    src/mimetext.h \
-    src/quotedprintable.h \
-    src/smtpclient.h \
-    src/smtpexports.h \
+    smtp.h \
     voiture.h
 
 FORMS += \

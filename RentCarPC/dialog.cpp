@@ -6,6 +6,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QModelIndex>
+#include <QSqlQuery>
+#include "smtp.h"
+
 
 
 
@@ -42,6 +45,15 @@ Dialog::Dialog(QWidget *parent) :
     ui->RAM_2->addItem("2Go");
     ui->RAM_2->addItem("4Go");
     ui->RAM_2->addItem("8Go");
+    ui->MARQUE->addItem("Toyota");
+    ui->MARQUE->addItem("Renault");
+    ui->MARQUE->addItem("Volkswagen");
+    ui->MARQUE->addItem("Fiat");
+    ui->MARQUE->addItem("Seat");
+    ui->MARQUE->addItem("Peugeot");
+    ui->MARQUE->addItem("Citroen");
+    ui->MODELE->clear();
+
 
     flip=0;
     QObject::connect(ui->AfficherTabVoit->horizontalHeader(), SIGNAL(sectionClicked(int)),this, SLOT(SortByHeader(int)));
@@ -60,6 +72,22 @@ Dialog::~Dialog()
 }
 
 /*-----------------INDEXWORK---------------------*/
+void Dialog::mail(QString email,QString sub,QString obj)
+{
+    qDebug() << QSslSocket::sslLibraryBuildVersionString();
+    qDebug() << QSslSocket::supportsSsl();
+    qDebug() << QSslSocket::sslLibraryVersionString();
+
+    Smtp* smtp = new Smtp("rentcar.projet@gmail.com", "azer123@", "smtp.gmail.com");
+    connect(smtp, SIGNAL(status(QString)), this, SLOT(mailSent(QString)));
+    smtp->sendMail(email , sub,obj);
+}
+
+void Dialog::mailSent(QString status)
+{
+    if(status == "Message sent")
+        QMessageBox::information(nullptr,QObject::tr("RentCar mailing !"),QObject::tr("Un email est envoye a votre client pour l informer de\nsa nouvelle carte de fidelite!\n"));
+}
 void Dialog::on_OrdinateurWin_clicked()
 {
      ui->stackedWidget->setCurrentIndex(0);
@@ -162,8 +190,8 @@ void Dialog::on_AddVoit_clicked()
     else
     {
         V.setMatricule(ui->MATRICULE->text());
-        V.setMarque(ui->MARQUE->text());
-        V.setModele(ui->MODELE->text());
+        V.setMarque(ui->MARQUE->currentText());
+        V.setModele(ui->MODELE->currentText());
         V.setNbPlace(ui->NBPLACE->text().toUInt());
         V.setPuissance(ui->PUISSANCE->text());
         V.setCouleur(ui->COULEUR->text());
@@ -440,6 +468,8 @@ void Dialog::on_IDFOUR_textChanged(const QString &arg1)
 void Dialog::on_MailFour_clicked()
 {
 
+ /*   QString email;
+
     QModelIndexList selection = ui->AfficherTabFour->selectionModel()->selectedRows(0);
 
     if (!selection.empty()) {
@@ -448,7 +478,16 @@ void Dialog::on_MailFour_clicked()
         int id = idIndex.data().toInt();
         qDebug()<< id << idIndex;
 
+    QSqlQuery query;
+    query.prepare("SELECT EMAIL from FOURNISSEUR WHERE ID=:id");
+    query.bindValue(":id",id);
+    while (query.next()) {
+        email = query.value(0).toString();
     }
+    }*/
+
+
+    mail("hamedhassenekun@gmail.com","test123","this is the bodi");
 }
 
 
@@ -911,3 +950,89 @@ void Dialog::SortByHeader3(int logicalIndex)
 
 
 
+
+void Dialog::on_MARQUE_currentTextChanged(const QString &arg1)
+{
+    ui->MODELE->clear();
+
+ if(arg1=="Toyota")
+ {
+    ui->MODELE->addItem("Yaris");
+    ui->MODELE->addItem("Yaris Sedan");
+    ui->MODELE->addItem("Corolla");
+    ui->MODELE->addItem("Corolla Sedan");
+    ui->MODELE->addItem("C-HR");
+    ui->MODELE->addItem("Hilux");
+    ui->MODELE->addItem("Rav4");
+    ui->MODELE->addItem("Prado");
+    ui->MODELE->addItem("Land Cruiser");
+ }
+ if(arg1=="Renault")
+ {
+    ui->MODELE->addItem("Clio");
+    ui->MODELE->addItem("Symbol");
+    ui->MODELE->addItem("Megane");
+    ui->MODELE->addItem("Megane Sedan");
+    ui->MODELE->addItem("Captur");
+    ui->MODELE->addItem("Trafic");
+ }
+if(arg1=="Volkswagen")
+{
+    ui->MODELE->addItem("UP");
+    ui->MODELE->addItem("Polo Sedan");
+    ui->MODELE->addItem("Polo");
+    ui->MODELE->addItem("Golf 7");
+    ui->MODELE->addItem("Golf 6");
+    ui->MODELE->addItem("Jetta");
+    ui->MODELE->addItem("Passat");
+    ui->MODELE->addItem("Tiguan");
+    ui->MODELE->addItem("Multivan");
+}
+if(arg1=="Fiat")
+{
+
+    ui->MODELE->addItem("Panda");
+    ui->MODELE->addItem("City Cross");
+    ui->MODELE->addItem("Tipo Berlin");
+    ui->MODELE->addItem("Tipo");
+    ui->MODELE->addItem("500");
+    ui->MODELE->addItem("500X");
+    ui->MODELE->addItem("Qudo");
+    ui->MODELE->addItem("Punto");
+}
+
+if(arg1=="Seat")
+{
+
+    ui->MODELE->addItem("Ibiza");
+    ui->MODELE->addItem("Leon");
+    ui->MODELE->addItem("Arona");
+    ui->MODELE->addItem("Tarraco");
+
+}
+
+
+if(arg1=="Peugeot")
+{
+    ui->MODELE->addItem("206");
+    ui->MODELE->addItem("206+");
+    ui->MODELE->addItem("207");
+    ui->MODELE->addItem("208");
+    ui->MODELE->addItem("307");
+    ui->MODELE->addItem("308");
+    ui->MODELE->addItem("406");
+    ui->MODELE->addItem("407");
+    ui->MODELE->addItem("2008");
+}
+
+
+if(arg1=="Citroen")
+{
+ui->MODELE->addItem("C2");
+ui->MODELE->addItem("C3");
+ui->MODELE->addItem("C4");
+ui->MODELE->addItem("C5");
+ui->MODELE->addItem("C6");
+}
+
+}
