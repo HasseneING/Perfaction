@@ -19,6 +19,10 @@ public:
     assurance(int,QString,int,QString,QDateTime,QDateTime,double);
 
     QSqlQueryModel* afficher();
+    QSqlQueryModel* afficher2();
+    QSqlQueryModel* afficher3();
+    QSqlQueryModel* afficher4();
+
     QSqlQueryModel* recherche(QString);
 
     bool ajouter();

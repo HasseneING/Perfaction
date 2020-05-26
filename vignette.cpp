@@ -21,7 +21,41 @@ QSqlQueryModel* vignette::afficher()
     QSqlQueryModel *model = new QSqlQueryModel;
       model->setQuery("SELECT v.CODE,v.MATRICULE,vt.MARQUE,vt.MODELE,v.DATE_DEB,"
                       "v.DATE_EXP,v.PRIX FROM vignette v INNER JOIN voitures vt "
-                      "ON v.MATRICULE=vt.MATRICULE");
+                      "ON v.MATRICULE=vt.MATRICULE ORDER BY v.CODE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("Code"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date Expiration"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* vignette::afficher2()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT v.CODE,v.MATRICULE,vt.MARQUE,vt.MODELE,v.DATE_DEB,"
+                      "v.DATE_EXP,v.PRIX FROM vignette v INNER JOIN voitures vt "
+                      "ON v.MATRICULE=vt.MATRICULE ORDER BY v.MATRICULE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("Code"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date Expiration"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* vignette::afficher3()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT v.CODE,v.MATRICULE,vt.MARQUE,vt.MODELE,v.DATE_DEB,"
+                      "v.DATE_EXP,v.PRIX FROM vignette v INNER JOIN voitures vt "
+                      "ON v.MATRICULE=vt.MATRICULE ORDER BY v.DATE_EXP");
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("Code"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));

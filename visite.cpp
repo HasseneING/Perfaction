@@ -22,7 +22,45 @@ QSqlQueryModel* visite::afficher()
     QSqlQueryModel *model = new QSqlQueryModel;
       model->setQuery("SELECT v.ID,v.MATRICULE,vt.MARQUE,vt.MODELE,v.COMPAGNIE,v.CODE,"
                       "v.DATE_DEB,v.DATE_EXP,v.PRIX FROM visite v INNER JOIN voitures vt "
-                      "ON v.MATRICULE=vt.MATRICULE ");
+                      "ON v.MATRICULE=vt.MATRICULE ORDER BY v.ID");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Compagnie d'assurance"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Code"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date Expiration"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* visite::afficher2()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT v.ID,v.MATRICULE,vt.MARQUE,vt.MODELE,v.COMPAGNIE,v.CODE,"
+                      "v.DATE_DEB,v.DATE_EXP,v.PRIX FROM visite v INNER JOIN voitures vt "
+                      "ON v.MATRICULE=vt.MATRICULE ORDER BY v.MATRICULE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Compagnie d'assurance"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Code"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date Expiration"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* visite::afficher3()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT v.ID,v.MATRICULE,vt.MARQUE,vt.MODELE,v.COMPAGNIE,v.CODE,"
+                      "v.DATE_DEB,v.DATE_EXP,v.PRIX FROM visite v INNER JOIN voitures vt "
+                      "ON v.MATRICULE=vt.MATRICULE ORDER BY v.DATE EXP");
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));

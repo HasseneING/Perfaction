@@ -22,7 +22,64 @@ QSqlQueryModel* assurance::afficher()
     QSqlQueryModel *model = new QSqlQueryModel;
       model->setQuery("SELECT a.ID,a.MATRICULE,v.MARQUE,v.MODELE,a.N_POLICE,a.TYPE,"
                       "a.DATE_DEB,a.DATE_FIN,a.PRIX FROM assurances a INNER JOIN voitures v "
-                      "ON a.MATRICULE=v.MATRICULE ");
+                      "ON a.MATRICULE=v.MATRICULE order by a.ID");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("N° de police"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Type"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date Fin"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* assurance::afficher2()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT a.ID,a.MATRICULE,v.MARQUE,v.MODELE,a.N_POLICE,a.TYPE,"
+                      "a.DATE_DEB,a.DATE_FIN,a.PRIX FROM assurances a INNER JOIN voitures v "
+                      "ON a.MATRICULE=v.MATRICULE order by a.MATRICULE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("N° de police"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Type"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date Fin"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* assurance::afficher3()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT a.ID,a.MATRICULE,v.MARQUE,v.MODELE,a.N_POLICE,a.TYPE,"
+                      "a.DATE_DEB,a.DATE_FIN,a.PRIX FROM assurances a INNER JOIN voitures v "
+                      "ON a.MATRICULE=v.MATRICULE order by a.N_POLICE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("N° de police"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Type"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date début"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date Fin"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Prix"));
+
+     return model;
+}
+
+QSqlQueryModel* assurance::afficher4()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT a.ID,a.MATRICULE,v.MARQUE,v.MODELE,a.N_POLICE,a.TYPE,"
+                      "a.DATE_DEB,a.DATE_FIN,a.PRIX FROM assurances a INNER JOIN voitures v "
+                      "ON a.MATRICULE=v.MATRICULE order by a.DATE_FIN");
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("Matricule"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("Marque"));

@@ -61,17 +61,23 @@ private slots:
 
     void on_validerModifAssu_clicked();
 
-    void on_validerSupprVign_clicked();
-
-    void on_validerSupprVis_clicked();
-
-    void on_validerSupprAssu_clicked();
-
     void on_rechercheVign_textChanged(const QString &arg1);
 
     void on_rechercheVis_textChanged(const QString &arg1);
 
     void on_rechercheAssu_textChanged(const QString &arg1);
+
+    void on_afficherAssu_2_clicked();
+
+    void on_afficherVis_2_clicked();
+
+    void on_afficherVign_2_clicked();
+
+    void on_triVign_currentIndexChanged(const QString &arg1);
+
+    void on_triVis_currentIndexChanged(const QString &arg1);
+
+    void on_triAssu_currentIndexChanged(const QString &arg1);
 
 private:
     Ui::Dialog *ui;

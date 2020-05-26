@@ -18,6 +18,9 @@ public:
     vignette(int,QString,QDateTime,QDateTime,double);
 
     QSqlQueryModel* afficher();
+    QSqlQueryModel* afficher2();
+    QSqlQueryModel* afficher3();
+
     QSqlQueryModel* recherche(QString);
 
     bool ajouter();
