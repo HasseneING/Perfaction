@@ -2,11 +2,64 @@
 #include "ui_dialog.h"
 #include <QModelIndex>
 
+#include "drilldownchart.h"
+#include "drilldownslice.h"
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLegend>
+#include <QtCharts/QPieSeries>
+#include <QSizeF>
+
+
 Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
+    init();
+}
+
+void Dialog:: init()
+{
     ui->setupUi(this);
+
+    ui->tabWidget->setCurrentIndex(0);
+    ui->stacked_location->setCurrentIndex(0);
+    ui->stacked_reservation->setCurrentIndex(0);
+
+    ui->table_loca->setModel(tmp.afficher());
+    ui->table_res->setModel(res.afficher());
+
+    ui->loc_kmD->setValidator( new QIntValidator(0,999999,this) );
+    ui->loc_km_d->setValidator( new QIntValidator(0,999999,this) );
+    ui->loc_km_a->setValidator( new QIntValidator(0,999999,this) );
+    ui->loc_RaP->setValidator( new QDoubleValidator(0,9999,3,this));
+    ui->loc_caution->setValidator( new QDoubleValidator(0,9999,3,this));
+    ui->loc_rap->setValidator( new QDoubleValidator(0,9999,3,this));
+    ui->loc_Caution->setValidator( new QDoubleValidator(0,9999.999,3,this));
+
+    ui->res_IdClient->setValidator(new QIntValidator(1,9999,this));
+    ui->res_IdRes->setValidator(new QIntValidator(1,9999,this));
+    ui->loc_idLoc->setValidator(new QIntValidator(1,9999,this));
+    ui->loc_idloc->setValidator(new QIntValidator(1,9999,this));
+    ui->loc_idres->setValidator(new QIntValidator(1,9999,this));
+
+    ui->table_res->setSortingEnabled(true);
+    ui->table_res->sortByColumn(0, Qt::AscendingOrder);
+
+   /*
+    QRegExp re("[a-z-A-Z ]{3}");
+    QRegExpValidator *v = new QRegExpValidator(re, this);
+
+    QRegExp re2("[A-Z-a-z-0-9 ]{30}");
+    QRegExpValidator *v2 = new QRegExpValidator(re2, this);
+
+     //email
+    QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
+                          QRegularExpression::CaseInsensitiveOption);
+    ui->lineEdit_4->setValidator(new QRegularExpressionValidator(rx, this));
+    */
+
 }
 
 Dialog::~Dialog()
@@ -26,7 +79,6 @@ void Dialog::on_afficher_loc_2_clicked()
     ui->stacked_location->setCurrentIndex(0);
     ui->table_loca->setModel(tmp.afficher());
 }
-
 
 void Dialog::on_ajouter_loc_clicked()
 {
@@ -58,8 +110,8 @@ void Dialog::on_modifier_loc_clicked()
                 ui->loc_idres->setText(qry.value(1).toString());
                 ui->loc_km_d->setText(qry.value(2).toString());
                 ui->loc_km_a->setText(qry.value(3).toString());
-                ui->loc_carbD->setText(qry.value(4).toString());
-                ui->loc_carbA->setText(qry.value(5).toString());
+                ui->loc_carbD_comboBox_2->setCurrentText(qry.value(4).toString());
+                ui->loc_carbA_comboBox->setCurrentText(qry.value(5).toString());
                 ui->loc_Caution->setText(qry.value(6).toString());
                 ui->loc_rap->setText(qry.value(7).toString());
             }
@@ -79,6 +131,7 @@ void Dialog::on_supprimer_loc_clicked()
     if (!selection.empty()) {
         QModelIndex idIndex = selection.at(0);
         double id = idIndex.data().toDouble();
+        QString idres = idIndex.sibling(idIndex.row(), 1).data().toString();
         QString idc = idIndex.sibling(idIndex.row(), 2).data().toString();
         QString mat = idIndex.sibling(idIndex.row(), 3).data().toString();
 
@@ -90,10 +143,15 @@ void Dialog::on_supprimer_loc_clicked()
                                        QMessageBox::Yes | QMessageBox::No);
 
         if (button == QMessageBox::Yes) {
+            QSqlQuery qe;
+            qe.prepare("UPDATE RESERVATION SET ETAT=0 WHERE ID_RES='"+idres+"'");
+            qe.exec();
+
            QString ids=QString::number(id);
             QSqlQuery q;
             q.prepare("delete from locations2 where IDLOC='"+ids+"'");
             q.exec();
+
         }
     } else {
         QMessageBox::information(this, tr("Suppression location"),
@@ -138,8 +196,8 @@ void Dialog::on_valider_modif_clicked()
     double idres=ui->loc_idres->text().toDouble();
     double kmD=ui->loc_km_d->text().toDouble();
     double kmA=ui->loc_km_a->text().toDouble();
-    QString carbD=ui->loc_carbD->text();
-    QString carbA=ui->loc_carbA->text();
+    QString carbD=ui->loc_carbD_comboBox_2->currentText();
+    QString carbA=ui->loc_carbA_comboBox->currentText();
     double caution=ui->loc_Caution->text().toDouble();
     double rap=ui->loc_rap->text().toDouble();
 
@@ -211,7 +269,9 @@ void Dialog::on_modifier_res_clicked() //icon modifier
         ui->res_IDRes->setText(IDRES);
 
         QSqlQueryModel *model = new QSqlQueryModel;
-        model->setQuery("(SELECT CONCAT(CONCAT(IDC,' '),CONCAT(CONCAT(NOM, ' '),PRENOM)) AS aff FROM PHYSIQUE) UNION (SELECT CONCAT(CONCAT(IDC,' '),CONCAT(CONCAT(NOM_SOC, ' de '),PROP)) AS aff FROM MORAL)");
+        model->setQuery("(SELECT CONCAT(CONCAT(IDC,' '),CONCAT(CONCAT(NOM, ' '),PRENOM)) "
+                        "AS aff FROM PHYSIQUE) UNION (SELECT CONCAT(CONCAT(IDC,' '),"
+                        "CONCAT(CONCAT(NOM_SOC, ' de '),PROP)) AS aff FROM MORAL)");
         ui->res_IdClient_comboBox_3->setModel(model);
 
         QSqlQueryModel *model3 = new QSqlQueryModel;
@@ -628,9 +688,33 @@ void Dialog::on_loc_idRes_comboBox_currentIndexChanged(const QString &arg1)
         while (query.next())
         {
             ui->loc_IdCl->setText(query.value(0).toString());
-            ui->loc_societe->setText(query.value(1).toString());
-            ui->loc_nom->setText(query.value(1).toString());
-            ui->loc_prenom->setText(query.value(1).toString());
+
+            QString id=query.value(0).toString();
+            QSqlQuery qry;
+            qry.prepare("SELECT NOM,PRENOM FROM PHYSIQUE WHERE IDC='"+id+"' ");
+            if (qry.exec() && qry.next())
+            {
+                qry.previous();
+                while (qry.next())
+                {
+                    ui->loc_societe->clear();
+                    ui->loc_nom->setText(qry.value(0).toString());
+                    ui->loc_prenom->setText(qry.value(1).toString());
+                }
+            }
+            else
+            {
+                qry.prepare("SELECT NOM_SOC FROM MORAL WHERE IDC='"+id+"' ");
+                if(qry.exec())
+                {
+                    while(qry.next())
+                    {
+                        ui->loc_societe->setText(qry.value(0).toString());
+                        ui->loc_nom->clear();
+                        ui->loc_prenom->clear();
+                    }
+                }
+            }
             ui->loc_matricule->setText(query.value(1).toString());
             ui->loc_dateDep->setDateTime(query.value(2).toDateTime());
             ui->loc_dateArr->setDateTime(query.value(3).toDateTime());
@@ -639,6 +723,8 @@ void Dialog::on_loc_idRes_comboBox_currentIndexChanged(const QString &arg1)
             ui->loc_total->setText(query.value(6).toString());
         }
     }
+
+
 
     QSqlQuery q;
     q.prepare("SELECT KILOMETRAGE FROM RESERVATION r INNER JOIN VOITURES v "
@@ -685,8 +771,130 @@ void Dialog::on_afficher_res_2_clicked()
     ui->table_res->setModel(res.afficher());
 }
 
-void Dialog::on_tabWidget_currentChanged(int index)
+void Dialog::on_tabWidget_currentChanged()
 {
     ui->table_res->setModel(res.afficher());
     ui->table_loca->setModel(tmp.afficher());
+    ui->stacked_location->setCurrentIndex(0);
+    ui->stacked_reservation->setCurrentIndex(0);
+}
+
+void Dialog::on_stacked_location_currentChanged()
+{
+    ui->table_res->setModel(res.afficher());
+    ui->table_loca->setModel(tmp.afficher());
+}
+
+void Dialog::on_stacked_reservation_currentChanged()
+{
+    ui->table_res->setModel(res.afficher());
+    ui->table_loca->setModel(tmp.afficher());
+}
+
+void Dialog::on_history_clicked()
+{
+    ui->table_res->setModel(res.history());
+}
+
+void Dialog::on_tri_res_comboBox_currentIndexChanged(const QString &arg1)
+{
+    if(arg1=="Trier par ID")
+    {
+        ui->table_res->setModel(res.afficher());
+    }
+    else if(arg1=="Trier par ID client")
+    {
+        ui->table_res->setModel(res.afficher2());
+    }
+    else if(arg1=="Trier par matricule")
+    {
+        ui->table_res->setModel(res.afficher3());
+    }
+    else if(arg1=="Trier par date départ")
+    {
+        ui->table_res->setModel(res.afficher4());
+    }
+}
+
+void Dialog::on_tri_loc_comboBox_currentIndexChanged(const QString &arg1)
+{
+    if(arg1=="Trier par ID")
+    {
+        ui->table_loca->setModel(tmp.afficher());
+    }
+    if(arg1=="Trier par ID réservation")
+    {
+        ui->table_loca->setModel(tmp.afficher2());
+    }
+    else if(arg1=="Trier par ID client")
+    {
+        ui->table_loca->setModel(tmp.afficher3());
+    }
+    else if(arg1=="Trier par matricule")
+    {
+        ui->table_loca->setModel(tmp.afficher4());
+    }
+    else if(arg1=="Trier par date départ")
+    {
+        ui->table_loca->setModel(tmp.afficher5());
+    }
+}
+
+void Dialog::on_stat_clicked()
+{
+
+    DrilldownChart *chart = new DrilldownChart();
+    chart->setTheme(QChart::ChartThemeQt);
+    chart->setAnimationOptions(QChart::AllAnimations);
+    QSizeF s(500,500);
+    chart->resize(s);
+    chart->legend()->setVisible(true);
+    chart->legend()->setAlignment(Qt::AlignRight);
+
+    QPieSeries *marqueSeries = new QPieSeries(ui->tabWidget);
+    marqueSeries->setName("Location par Marque");
+
+    QSqlQuery query;
+    query.prepare("SELECT DISTINCT MARQUE from VOITURES");
+    query.exec();
+    while(query.next())
+    {
+        QString marque = query.value(0).toString();
+        QPieSeries *modeleSeries = new QPieSeries(ui->tabWidget);
+        modeleSeries->setName("Location par Modèle - " + marque);
+
+        QSqlQuery q;
+        q.prepare("SELECT DISTINCT MODELE from VOITURES where MARQUE='"+marque+"'");
+        q.exec();
+        while(q.next())
+        {
+            QString modele = q.value(0).toString();
+            QSqlQuery qr;
+            qr.prepare("select COUNT(*) from locations2 l inner join reservation r "
+                       "on l.idres=r.id_res inner join voitures v "
+                       "on r.matricule=v.matricule where v.modele='"+modele+"'");
+            qr.exec();
+            qr.next();
+            *modeleSeries << new DrilldownSlice(qr.value(0).toInt(), modele, marqueSeries);
+        }
+
+        QObject::connect(modeleSeries, &QPieSeries::clicked, chart, &DrilldownChart::handleSliceClicked);
+
+        *marqueSeries << new DrilldownSlice(modeleSeries->sum(), marque, modeleSeries);
+    }
+
+    QObject::connect(marqueSeries, &QPieSeries::clicked, chart, &DrilldownChart::handleSliceClicked);
+
+    chart->changeSeries(marqueSeries);
+
+    QChartView *chartView = new QChartView(chart,ui->Stat);
+    chartView->setRenderHint(QPainter::Antialiasing);
+
+    ui->stacked_location->setCurrentIndex(3);
+
+}
+
+void Dialog::on_afficher_loc_3_clicked()
+{
+    ui->stacked_location->setCurrentIndex(0);
 }

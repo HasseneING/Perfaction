@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     connexion.cpp \
     dialog.cpp \
+    drilldownchart.cpp \
+    drilldownslice.cpp \
     location.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -26,6 +28,8 @@ SOURCES += \
 HEADERS += \
     connexion.h \
     dialog.h \
+    drilldownchart.h \
+    drilldownslice.h \
     location.h \
     mainwindow.h \
     reservation.h
@@ -41,3 +45,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     images.qrc
+
+DISTFILES +=

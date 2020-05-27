@@ -470,9 +470,9 @@
       <colorrole role="WindowText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
@@ -542,9 +542,9 @@
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
@@ -616,9 +616,9 @@
       <colorrole role="WindowText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
@@ -688,9 +688,9 @@
       <colorrole role="ButtonText">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>0</red>
-         <green>0</green>
-         <blue>0</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
@@ -912,6 +912,9 @@
      <bold>true</bold>
     </font>
    </property>
+   <property name="toolTip">
+    <string>Statistiques</string>
+   </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
@@ -968,6 +971,43 @@
        <height>41</height>
       </rect>
      </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>255</red>
+           <green>255</green>
+           <blue>255</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="WindowText">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>13</red>
+           <green>76</green>
+           <blue>69</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
+     </property>
      <property name="font">
       <font>
        <family>MS Shell Dlg 2</family>
@@ -999,7 +1039,7 @@
       <enum>QFrame::Plain</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>3</number>
      </property>
      <widget class="QWidget" name="page_afficher_loc">
       <widget class="QLineEdit" name="recherche">
@@ -1051,6 +1091,43 @@
          <height>20</height>
         </rect>
        </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
        <property name="text">
         <string>Recherche rapide :</string>
        </property>
@@ -1063,6 +1140,21 @@
          <width>30</width>
          <height>30</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Rafraichir</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>-1</number>
+       </property>
+       <property name="statusTip">
+        <string/>
+       </property>
+       <property name="whatsThis">
+        <string/>
+       </property>
+       <property name="accessibleDescription">
+        <string/>
        </property>
        <property name="styleSheet">
         <string notr="true">#rafraichir{
@@ -1086,6 +1178,9 @@ background-repeat : none;
          <height>30</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Supprimer</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#supprimer_loc{
 background-color : transparent;
@@ -1107,6 +1202,9 @@ background-repeat : none;
          <width>30</width>
          <height>30</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Modifier</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#modifier_loc{
@@ -1135,6 +1233,9 @@ background-repeat : none;
          <weight>50</weight>
          <bold>false</bold>
         </font>
+       </property>
+       <property name="toolTip">
+        <string>Ajouter</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#ajouter_loc{
@@ -1171,8 +1272,274 @@ background-repeat : none;
          <height>391</height>
         </rect>
        </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="tri_loc_comboBox">
+       <property name="geometry">
+        <rect>
+         <x>1060</x>
+         <y>25</y>
+         <width>141</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Text">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Base">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="PlaceholderText">
+           <brush brushstyle="NoBrush">
+            <color alpha="128">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Text">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Base">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="PlaceholderText">
+           <brush brushstyle="NoBrush">
+            <color alpha="128">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Text">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Base">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>27</red>
+             <green>153</green>
+             <blue>139</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="PlaceholderText">
+           <brush brushstyle="NoBrush">
+            <color alpha="128">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <item>
+        <property name="text">
+         <string>Trier par ID</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par ID réservation</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par ID client</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par matricule</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par date départ</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QPushButton" name="stat">
+       <property name="geometry">
+        <rect>
+         <x>1270</x>
+         <y>20</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#stat{
+background-color : transparent;
+border-image : url(:/stat.png);
+background : none;
+border : none;
+background-repeat : none;
+}</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </widget>
      </widget>
@@ -1832,6 +2199,70 @@ background-repeat : none;
          <height>201</height>
         </rect>
        </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
       </widget>
       <widget class="QLabel" name="label_3">
        <property name="geometry">
@@ -1841,6 +2272,70 @@ background-repeat : none;
          <width>181</width>
          <height>16</height>
         </rect>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
        </property>
        <property name="font">
         <font>
@@ -1878,44 +2373,39 @@ background-repeat : none;
       <widget class="QGroupBox" name="groupBox_2">
        <property name="geometry">
         <rect>
-         <x>130</x>
+         <x>120</x>
          <y>50</y>
-         <width>1101</width>
-         <height>401</height>
+         <width>1111</width>
+         <height>441</height>
         </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
        </property>
        <property name="title">
         <string>Modifier un contrat de location</string>
        </property>
        <widget class="QLineEdit" name="loc_idres">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="geometry">
          <rect>
-          <x>520</x>
-          <y>90</y>
+          <x>550</x>
+          <y>70</y>
           <width>150</width>
           <height>20</height>
          </rect>
         </property>
        </widget>
-       <widget class="QLabel" name="label_29">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>150</y>
-          <width>71</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Km arrivée</string>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_27">
         <property name="geometry">
          <rect>
-          <x>410</x>
-          <y>90</y>
-          <width>81</width>
+          <x>420</x>
+          <y>70</y>
+          <width>121</width>
           <height>16</height>
          </rect>
         </property>
@@ -1923,38 +2413,12 @@ background-repeat : none;
          <string>Id réservation</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_28">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>210</y>
-          <width>71</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Carb. arrivée</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_23">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>180</y>
-          <width>71</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Carb. départ</string>
-        </property>
-       </widget>
        <widget class="QLabel" name="label_24">
         <property name="geometry">
          <rect>
-          <x>410</x>
-          <y>60</y>
-          <width>71</width>
+          <x>420</x>
+          <y>110</y>
+          <width>121</width>
           <height>16</height>
          </rect>
         </property>
@@ -1962,34 +2426,11 @@ background-repeat : none;
          <string>Id Location</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="loc_carbA">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>210</y>
-          <width>150</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_26">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>120</y>
-          <width>71</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Km départ</string>
-        </property>
-       </widget>
        <widget class="QLineEdit" name="loc_idloc">
         <property name="geometry">
          <rect>
-          <x>520</x>
-          <y>60</y>
+          <x>550</x>
+          <y>110</y>
           <width>150</width>
           <height>20</height>
          </rect>
@@ -1998,9 +2439,9 @@ background-repeat : none;
        <widget class="QPushButton" name="valider_modif">
         <property name="geometry">
          <rect>
-          <x>500</x>
-          <y>320</y>
-          <width>101</width>
+          <x>510</x>
+          <y>340</y>
+          <width>111</width>
           <height>31</height>
          </rect>
         </property>
@@ -2018,104 +2459,282 @@ background-repeat : none;
          </size>
         </property>
        </widget>
-       <widget class="QLineEdit" name="loc_km_d">
+       <widget class="QGroupBox" name="details_sortie">
         <property name="geometry">
          <rect>
-          <x>520</x>
-          <y>120</y>
-          <width>151</width>
-          <height>20</height>
+          <x>30</x>
+          <y>170</y>
+          <width>331</width>
+          <height>131</height>
          </rect>
         </property>
+        <property name="title">
+         <string>Détails sortie</string>
+        </property>
+        <widget class="QComboBox" name="loc_carbD_comboBox_2">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>80</y>
+           <width>151</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>1/4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2/4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3/4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4/4</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QLabel" name="label_23">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>80</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Carb. départ</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="loc_km_d">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>40</y>
+           <width>151</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_26">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>150</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Km départ</string>
+         </property>
+        </widget>
        </widget>
-       <widget class="QLineEdit" name="loc_Caution">
+       <widget class="QGroupBox" name="details_entree">
         <property name="geometry">
          <rect>
-          <x>520</x>
-          <y>240</y>
-          <width>150</width>
-          <height>20</height>
+          <x>390</x>
+          <y>170</y>
+          <width>331</width>
+          <height>131</height>
          </rect>
         </property>
+        <property name="title">
+         <string>Détails Entrée</string>
+        </property>
+        <widget class="QComboBox" name="loc_carbA_comboBox">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>80</y>
+           <width>151</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <item>
+          <property name="text">
+           <string>1/4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2/4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3/4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4/4</string>
+          </property>
+         </item>
+        </widget>
+        <widget class="QLineEdit" name="loc_km_a">
+         <property name="geometry">
+          <rect>
+           <x>160</x>
+           <y>40</y>
+           <width>151</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_28">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>80</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Carb. arrivée</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_29">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>40</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Km arrivée</string>
+         </property>
+        </widget>
        </widget>
-       <widget class="QLabel" name="label_32">
+       <widget class="QGroupBox" name="details_paiment">
         <property name="geometry">
          <rect>
-          <x>410</x>
-          <y>240</y>
-          <width>71</width>
-          <height>20</height>
+          <x>750</x>
+          <y>170</y>
+          <width>331</width>
+          <height>131</height>
          </rect>
         </property>
-        <property name="text">
-         <string>Caution</string>
+        <property name="title">
+         <string>Détails paiement</string>
         </property>
+        <widget class="QLineEdit" name="loc_rap">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>80</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_41">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>80</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Reste à payer</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="loc_Caution">
+         <property name="geometry">
+          <rect>
+           <x>170</x>
+           <y>40</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_32">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>40</y>
+           <width>150</width>
+           <height>20</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Caution</string>
+         </property>
+        </widget>
        </widget>
-       <widget class="QLabel" name="label_41">
-        <property name="geometry">
-         <rect>
-          <x>410</x>
-          <y>270</y>
-          <width>81</width>
-          <height>20</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Reste à payer</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="loc_rap">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>270</y>
-          <width>150</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="loc_km_a">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>150</y>
-          <width>151</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="loc_carbD">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>180</y>
-          <width>151</width>
-          <height>20</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="afficher_loc_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>20</y>
-          <width>30</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">#afficher_loc_2{
+      </widget>
+      <widget class="QPushButton" name="afficher_loc_2">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#afficher_loc_2{
 background-color : transparent;
 border-image : url(:/return.png);
 background : none;
 border : none;
 background-repeat : none;
 }</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QWidget" name="page_stat">
+      <widget class="QGroupBox" name="Stat">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>30</y>
+         <width>500</width>
+         <height>500</height>
+        </rect>
+       </property>
+       <property name="title">
+        <string>Statistiques</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="afficher_loc_3">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>40</y>
+         <width>30</width>
+         <height>30</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#afficher_loc_3{
+background-color : transparent;
+border-image : url(:/return.png);
+background : none;
+border : none;
+background-repeat : none;
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </widget>
      </widget>
     </widget>
@@ -2160,6 +2779,70 @@ background-repeat : none;
        <width>1331</width>
        <height>551</height>
       </rect>
+     </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="PlaceholderText">
+         <brush brushstyle="NoBrush">
+          <color alpha="128">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="PlaceholderText">
+         <brush brushstyle="NoBrush">
+          <color alpha="128">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="Text">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>13</red>
+           <green>76</green>
+           <blue>69</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="PlaceholderText">
+         <brush brushstyle="NoBrush">
+          <color alpha="128">
+           <red>0</red>
+           <green>0</green>
+           <blue>0</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
      </property>
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -2236,6 +2919,9 @@ background-repeat : none;
          <height>30</height>
         </rect>
        </property>
+       <property name="toolTip">
+        <string>Rafraichir</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#rafraichir_res{
 background-color : transparent;
@@ -2257,6 +2943,9 @@ background-repeat : none;
          <width>30</width>
          <height>30</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Modifier</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#modifier_res{
@@ -2286,6 +2975,9 @@ background-repeat : none;
          <bold>false</bold>
         </font>
        </property>
+       <property name="toolTip">
+        <string>Ajouter</string>
+       </property>
        <property name="styleSheet">
         <string notr="true">#ajouter_res{
 background-color : transparent;
@@ -2307,6 +2999,9 @@ background-repeat : none;
          <width>30</width>
          <height>30</height>
         </rect>
+       </property>
+       <property name="toolTip">
+        <string>Supprimer</string>
        </property>
        <property name="styleSheet">
         <string notr="true">#supprimer_res{
@@ -2343,12 +3038,143 @@ background-repeat : none;
          <height>391</height>
         </rect>
        </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>0</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="WindowText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>13</red>
+             <green>76</green>
+             <blue>69</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
        <property name="alternatingRowColors">
         <bool>true</bool>
        </property>
        <attribute name="horizontalHeaderStretchLastSection">
         <bool>true</bool>
        </attribute>
+      </widget>
+      <widget class="QPushButton" name="history">
+       <property name="geometry">
+        <rect>
+         <x>1270</x>
+         <y>22</y>
+         <width>32</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="toolTip">
+        <string>Historique</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">#history{
+background-color : transparent;
+border-image : url(:/history.png);
+background : none;
+border : none;
+background-repeat : none;
+}</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="tri_res_comboBox">
+       <property name="geometry">
+        <rect>
+         <x>1060</x>
+         <y>25</y>
+         <width>141</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font/>
+       </property>
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <item>
+        <property name="text">
+         <string>Trier par ID</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par ID client</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par matricule</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Trier par date départ</string>
+        </property>
+       </item>
       </widget>
      </widget>
      <widget class="QWidget" name="page_ajouter_res">

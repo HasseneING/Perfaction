@@ -25,8 +25,96 @@ QSqlQueryModel* reservation::afficher()
     QSqlQueryModel *model = new QSqlQueryModel;
       model->setQuery("SELECT r.ID_RES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
                       "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
-                      "r.TOTAL_G,r.ETAT FROM Reservation r INNER JOIN voitures v "
-                      "on r.MATRICULE=v.MATRICULE");
+                      "r.TOTAL_G FROM Reservation r INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE Where r.ETAT=0 order by r.ID_RES");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("ID Client"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Total G"));
+
+     return model;
+}
+
+QSqlQueryModel* reservation::afficher2()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT r.ID_RES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                      "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                      "r.TOTAL_G FROM Reservation r INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE Where r.ETAT=0 order by r.IDCLIENT");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("ID Client"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Total G"));
+
+     return model;
+}
+
+QSqlQueryModel* reservation::afficher3()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT r.ID_RES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                      "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                      "r.TOTAL_G FROM Reservation r INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE Where r.ETAT=0 order by r.MATRICULE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("ID Client"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Total G"));
+
+     return model;
+}
+
+QSqlQueryModel* reservation::afficher4()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT r.ID_RES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                      "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                      "r.TOTAL_G FROM Reservation r INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE Where r.ETAT=0 order by r.DATE_DEPART");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("ID Client"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Total G"));
+
+     return model;
+}
+
+QSqlQueryModel* reservation::history()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT r.ID_RES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                      "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                      "r.TOTAL_G FROM Reservation r INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE Where r.ETAT=1 order by r.ID_RES");
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("ID Client"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("Matricule"));

@@ -23,6 +23,7 @@ public:
     ~Dialog();
 
 private slots:
+    void init();
 
     void on_afficher_loc_clicked();
 
@@ -82,10 +83,23 @@ private slots:
 
     void on_table_loca_activated(const QModelIndex &index);
 
-
     void on_afficher_res_2_clicked();
 
-    void on_tabWidget_currentChanged(int index);
+    void on_tabWidget_currentChanged();
+
+    void on_stacked_location_currentChanged();
+
+    void on_stacked_reservation_currentChanged();
+
+    void on_history_clicked();
+
+    void on_tri_res_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_tri_loc_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_stat_clicked();
+
+    void on_afficher_loc_3_clicked();
 
 private:
     Ui::Dialog *ui;

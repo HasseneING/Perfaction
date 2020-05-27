@@ -21,6 +21,11 @@ public:
 
 
     QSqlQueryModel* afficher();
+    QSqlQueryModel* afficher2();
+    QSqlQueryModel* afficher3();
+    QSqlQueryModel* afficher4();
+    QSqlQueryModel* afficher5();
+
     QSqlQueryModel * rechercher(QString);
 
 

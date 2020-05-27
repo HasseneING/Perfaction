@@ -81,7 +81,115 @@ QSqlQueryModel* Location::afficher()
                      "r.TOTAL_G,l.RESTE_A_PAYER,l.CAUTION FROM Locations2 l INNER JOIN Reservation r "
                       "ON l.IDRES=r.ID_RES "
                       "INNER JOIN voitures v "
-                      "on r.MATRICULE=v.MATRICULE ");
+                      "on r.MATRICULE=v.MATRICULE order by l.IDLOC");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id location"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id réservation"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Id client"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(11, Qt::Horizontal, QObject::tr("Total G"));
+      model->setHeaderData(12, Qt::Horizontal, QObject::tr("Reste à payer"));
+      model->setHeaderData(13, Qt::Horizontal, QObject::tr("Caution"));
+
+     return model;
+}
+
+QSqlQueryModel* Location::afficher2()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT l.IDLOC,l.IDRES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                     "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                     "r.TOTAL_G,l.RESTE_A_PAYER,l.CAUTION FROM Locations2 l INNER JOIN Reservation r "
+                      "ON l.IDRES=r.ID_RES "
+                      "INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE order by l.IDRES");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id location"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id réservation"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Id client"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(11, Qt::Horizontal, QObject::tr("Total G"));
+      model->setHeaderData(12, Qt::Horizontal, QObject::tr("Reste à payer"));
+      model->setHeaderData(13, Qt::Horizontal, QObject::tr("Caution"));
+
+     return model;
+}
+
+QSqlQueryModel* Location::afficher3()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT l.IDLOC,l.IDRES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                     "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                     "r.TOTAL_G,l.RESTE_A_PAYER,l.CAUTION FROM Locations2 l INNER JOIN Reservation r "
+                      "ON l.IDRES=r.ID_RES "
+                      "INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE order by r.IDCLIENT");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id location"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id réservation"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Id client"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(11, Qt::Horizontal, QObject::tr("Total G"));
+      model->setHeaderData(12, Qt::Horizontal, QObject::tr("Reste à payer"));
+      model->setHeaderData(13, Qt::Horizontal, QObject::tr("Caution"));
+
+     return model;
+}
+
+QSqlQueryModel* Location::afficher4()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT l.IDLOC,l.IDRES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                     "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                     "r.TOTAL_G,l.RESTE_A_PAYER,l.CAUTION FROM Locations2 l INNER JOIN Reservation r "
+                      "ON l.IDRES=r.ID_RES "
+                      "INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE order by r.MATRICULE");
+      model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id location"));
+      model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id réservation"));
+      model->setHeaderData(2, Qt::Horizontal, QObject::tr("Id client"));
+      model->setHeaderData(3, Qt::Horizontal, QObject::tr("Matricule"));
+      model->setHeaderData(4, Qt::Horizontal, QObject::tr("Marque"));
+      model->setHeaderData(5, Qt::Horizontal, QObject::tr("Modèle"));
+      model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date départ"));
+      model->setHeaderData(7, Qt::Horizontal, QObject::tr("Date arrivée"));
+      model->setHeaderData(8, Qt::Horizontal, QObject::tr("Total HT"));
+      model->setHeaderData(9, Qt::Horizontal, QObject::tr("Total TTC"));
+      model->setHeaderData(10, Qt::Horizontal, QObject::tr("Remise"));
+      model->setHeaderData(11, Qt::Horizontal, QObject::tr("Total G"));
+      model->setHeaderData(12, Qt::Horizontal, QObject::tr("Reste à payer"));
+      model->setHeaderData(13, Qt::Horizontal, QObject::tr("Caution"));
+
+     return model;
+}
+
+QSqlQueryModel* Location::afficher5()
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+      model->setQuery("SELECT l.IDLOC,l.IDRES,r.IDCLIENT,r.MATRICULE,v.MARQUE,v.MODELE,"
+                     "r.DATE_DEPART,r.DATE_ARRIVEE,r.MONTANT_HT,r.TOTAL_TTC,r.REMISE,"
+                     "r.TOTAL_G,l.RESTE_A_PAYER,l.CAUTION FROM Locations2 l INNER JOIN Reservation r "
+                      "ON l.IDRES=r.ID_RES "
+                      "INNER JOIN voitures v "
+                      "on r.MATRICULE=v.MATRICULE order by r.DATE_DEPART");
       model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id location"));
       model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id réservation"));
       model->setHeaderData(2, Qt::Horizontal, QObject::tr("Id client"));
@@ -114,7 +222,7 @@ QSqlQueryModel * Location::rechercher(QString ch)
                     "OR UPPER(v.MODELE) like UPPER('%"+ch+"%') "
                     "OR UPPER(l.IDLOC) like UPPER('%"+ch+"%') "
                     "OR UPPER(l.IDRES) like UPPER('%"+ch+"%') "
-                    "OR UPPER(r.IDCLIENT) like UPPER('%"+ch+"%') ");
+                    "OR UPPER(r.IDCLIENT) like UPPER('%"+ch+"%') order by l.IDLOC");
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id location"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Id réservation"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("Id client"));

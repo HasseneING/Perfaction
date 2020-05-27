@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    setFixedSize(890,560);
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()

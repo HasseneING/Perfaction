@@ -57,6 +57,12 @@ public:
     bool ajouter();
     bool modifier_reservation();
     QSqlQueryModel* afficher();
+    QSqlQueryModel* afficher2();
+    QSqlQueryModel* afficher3();
+    QSqlQueryModel* afficher4();
+
+
+    QSqlQueryModel* history();
     QSqlQueryModel * rechercher(QString);
 
 };
