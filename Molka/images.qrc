@@ -12,5 +12,6 @@
         <file>history.png</file>
         <file>stat.png</file>
         <file>login.jpg</file>
+        <file>pdf.png</file>
     </qresource>
 </RCC>

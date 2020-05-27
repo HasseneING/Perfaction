@@ -898,3 +898,123 @@ void Dialog::on_afficher_loc_3_clicked()
 {
     ui->stacked_location->setCurrentIndex(0);
 }
+
+#include <QtWidgets>
+#ifndef QT_NO_PRINTER
+#include <QPrinter>
+#endif
+
+void Dialog::on_pdfRes_clicked()
+{
+    QModelIndexList selection = ui->table_loca->selectionModel()->selectedIndexes();
+    if (!selection.empty()) {
+        QString idLoc = selection.at(0).data().toString();
+        QString idRes = selection.at(1).data().toString();
+        QString idC = selection.at(2).data().toString();
+        QString matricule = selection.at(3).data().toString();
+        QString marque = selection.at(4).data().toString();
+        QString modele = selection.at(5).data().toString();
+        QString depart = selection.at(6).data().toDateTime().toString("dd/MM/yyyy hh:mm");
+        QString arrivee = selection.at(7).data().toDateTime().toString("dd/MM/yyyy hh:mm");
+        QString THT = selection.at(8).data().toString();
+        QString TTC = selection.at(9).data().toString();
+        QString remise = selection.at(10).data().toString();
+        QString tot = selection.at(11).data().toString();
+        QString caution = selection.at(13).data().toString();
+        QString nom;
+        QString prenom;
+        QString naissance;
+        QString cin;
+        QString nomSoc;
+        QString prop;
+        QString codeFisc;
+        
+        QSqlQuery query2;
+        query2.prepare("SELECT NOM,PRENOM,NAISSANCE,CIN FROM PHYSIQUE WHERE IDC='"+idC+"'");
+        query2.exec();
+
+        if(query2.next())
+        {
+            nom=query2.value(0).toString();
+            prenom=query2.value(1).toString();
+            naissance=query2.value(3).toDateTime().toString("dd/MM/yyyy");
+            cin=query2.value(4).toString();
+
+            nomSoc="-----";
+            prop="-----";
+            codeFisc="-----";
+        }
+        else
+        {
+            query2.prepare("SELECT NOM_SOC,PROP,CODE_FISC FROM MORAL WHERE IDC='"+idC+"'");
+            query2.exec();
+            query2.next();
+
+            nom="-----";
+            prenom="-----";
+            naissance="-----";
+            cin="-----";
+
+            nomSoc=query2.value(0).toString();
+            prop=query2.value(1).toString();
+            codeFisc=query2.value(2).toString();
+        }
+
+        QSqlQuery query;
+        query.prepare("SELECT KM_DEPART,KM_ARRIVEE,CARB_DEPART,CARB_ARRIVEE from LOCATIONS2 where IDLOC='"+idLoc+"'");
+        query.exec();
+        query.next();
+
+        QString kmD=query.value(0).toString();
+        QString kmA=query.value(1).toString();
+        QString carbD=query.value(2).toString();
+        QString carbA=query.value(3).toString();
+
+        QString sDate = QDate::currentDate().toString("dddd dd MMMM yyyy");
+        
+       QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
+       if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append(".pdf"); }
+    
+       QPrinter printer(QPrinter::PrinterResolution);
+       printer.setOutputFormat(QPrinter::PdfFormat);
+       printer.setPaperSize(QPrinter::A4);
+       printer.setOutputFileName(fileName);
+        
+       QString strStream;
+       QTextStream out(&strStream);
+    
+        out<< "<div style=\"margin-left: 20%; margin-right: 20pt\">\
+              <h1 style=\"text-align:center;\">Contrat de location de voiture</h1>\
+              <table align=\"center\" width=\"80%\" border=0 >\
+                  <tr>\
+                      <td width=\"75%\"></td>\
+                      <td width=\"25%\"><h2>RENTINI</h2></td>\
+                  </tr>\
+                  <tr>\
+                      <td width=\"75%\"></td>\
+                      <td width=\"25%\">\
+                          <br/><br/>";
+                out<<"</td>\
+                  </tr>\
+              </table>";
+            out<<QString("<p style=\"text-align:right; font-size: 8pt;\">Tunis le %1</p><br/><br/>").arg(sDate);
+
+            out<<QString("<p>Nom : %1<br/>Prenom : %2<br/>CIN : %3<br/>Date de naissance : %4</p>").arg(nom).
+                     arg(prenom).arg(cin).arg(naissance);
+            out<<QString("<p>Societe : %1<br/>Code Fiscal : %2<br/>Proprietaire : %3</p>").arg(nomSoc).
+                     arg(codeFisc).arg(prop);
+            out<<QString("<p>Matricule : %1<br/>Marque : %2<br/>Modele : %3<br/>Date départ : %4<br/>Date arrivée : %5</p>")
+                 .arg(matricule).arg(marque).arg(modele).arg(depart).arg(arrivee);
+            out<<QString("<p>Total HT : %1<br/>Total TTC : %2<br/>Remise : %3<br/>Total général : %4<br/>Caution : %5</p></div>")
+                 .arg(THT).arg(TTC).arg(remise).arg(tot).arg(caution);
+
+       QTextDocument doc;
+       doc.setHtml(strStream);
+       doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+       doc.print(&printer);
+
+    } else {
+        QMessageBox::information(this, tr("PDF"),
+                                 tr("Selectionnez la location dont vous voulez avoir le contrat."));
+    }
+}

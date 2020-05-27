@@ -101,6 +101,8 @@ private slots:
 
     void on_afficher_loc_3_clicked();
 
+    void on_pdfRes_clicked();
+
 private:
     Ui::Dialog *ui;
     Location tmp;
