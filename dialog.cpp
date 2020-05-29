@@ -8,61 +8,21 @@ Dialog::Dialog(QWidget *parent) :
 
     ui->setupUi(this);
     this->showMaximized();
-    /*QLineEdit *lineEditIdEmp = new QLineEdit;
-    lineEditIdEmp->setPlaceholderText("Enter number");*/
+
     QPixmap pic(":/img/heart.png");
 
     int w=ui->heart->width();
     int h=ui->heart->height();
     ui->heart->setPixmap(pic.scaled(w,h,Qt::KeepAspectRatio ));
-    ui->tableViewCompte->setModel(tmpCompte.afficherCompte());
+    ui->tableViewEmp->setModel(tmpEmploye.afficher());
+
+
+
 }
-/*
-void Dialog:: init()
+void Dialog::init()
 {
-    ui->setupUi(this);
 
-    ui->tabWidget->setCurrentIndex(0);
-    ui->stacked_location->setCurrentIndex(0);
-    ui->stacked_reservation->setCurrentIndex(0);
-
-    ui->table_loca->setModel(tmp.afficher());
-    ui->table_res->setModel(res.afficher());
-
-    ui->loc_kmD->setValidator( new QIntValidator(0,999999,this) );
-    ui->loc_km_d->setValidator( new QIntValidator(0,999999,this) );
-    ui->loc_km_a->setValidator( new QIntValidator(0,999999,this) );
-    ui->loc_RaP->setValidator( new QDoubleValidator(0,9999,3,this));
-    ui->loc_caution->setValidator( new QDoubleValidator(0,9999,3,this));
-    ui->loc_rap->setValidator( new QDoubleValidator(0,9999,3,this));
-    ui->loc_Caution->setValidator( new QDoubleValidator(0,9999.999,3,this));
-
-    ui->res_IdClient->setValidator(new QIntValidator(1,9999,this));
-    ui->res_IdRes->setValidator(new QIntValidator(1,9999,this));
-    ui->loc_idLoc->setValidator(new QIntValidator(1,9999,this));
-    ui->loc_idloc->setValidator(new QIntValidator(1,9999,this));
-    ui->loc_idres->setValidator(new QIntValidator(1,9999,this));
-
-    ui->table_res->setSortingEnabled(true);
-    ui->table_res->sortByColumn(0, Qt::AscendingOrder);
-
-
-    QRegExp re("[a-z-A-Z ]{3}");
-    QRegExpValidator *v = new QRegExpValidator(re, this);
-
-    QRegExp re2("[A-Z-a-z-0-9 ]{30}");
-    QRegExpValidator *v2 = new QRegExpValidator(re2, this);
-
-     //email
-    QRegularExpression rx("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b",
-                          QRegularExpression::CaseInsensitiveOption);
-    ui->lineEdit_4->setValidator(new QRegularExpressionValidator(rx, this));
-    }
-    */
-
-
-
-
+}
 
 Dialog::~Dialog()
 {
@@ -77,6 +37,10 @@ void Dialog::on_gestionEmp_clicked()
 void Dialog::on_gestionConge_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
+    QSqlQueryModel *model = new QSqlQueryModel;
+    model->setQuery("select id from employe");
+    ui->comboBoxIdEmpConge->setModel(model);
+    ui->tableViewCongeAll->setModel(tmpConge.afficherconge());
 
 }
 void Dialog::on_pushButton_clicked()
@@ -87,10 +51,19 @@ void Dialog::on_pushButton_clicked()
 void Dialog::on_gestionCompte_clicked()
 {
        ui->stackedWidget->setCurrentIndex(2);
+       QSqlQueryModel *model = new QSqlQueryModel;
+       model->setQuery("select id from employe");
+       ui->comboBoxIdEmpCompte->setModel(model);
+        ui->tableViewCompte->setModel(tmpCompte.afficherCompte());
+
 }
 void Dialog::on_pushButton_11_clicked()
 {
     ui->stackedWidgetConge->setCurrentIndex(0);
+
+
+
+
 }
 void Dialog::on_pushButton_12_clicked()
 {
@@ -266,8 +239,9 @@ void Dialog::on_buttonEnvoyerDemande_clicked()
     QDate dateDebut =ui->datDebuteEdit->date();
     QDate dateFin =ui->dateFinEdit->date();
     QDate dateRetour =ui->dateRetourEdit->date();
-    int idEmp=ui->lineEditIdEmpCompte->text().toInt();
-    QString idEmploye=ui->lineEditIdEmpCompte->text();
+    int idEmp=ui->comboBoxIdEmpConge->currentText().toInt();
+  //  int idEmp=ui->lineEditIdEmpCompte->text().toInt();
+   QString idEmploye=ui->comboBoxIdEmpConge->currentText();
 
     conge c( dateDebut, dateFin, dateRetour, motif, NULL, idEmp);
 
@@ -329,7 +303,7 @@ void Dialog::on_pushButton_AjouterCompte_clicked()
     QString login= ui->lineEdittLogin->text();
     QString mdp= ui->lineEditMDP->text();
     QString role= ui->comboBoxRole->currentText();
-    int idEmploye =ui->lineEditIdEmp->text().toInt();
+    int idEmploye =ui->comboBoxIdEmpCompte->currentText().toInt();
      compte c (login,mdp,role,idEmploye);
         bool test=c.ajouterCompte();
             if(test)
@@ -368,7 +342,7 @@ void Dialog::on_pushButton_modifierEmploye_clicked()
                     ui->lineEdittLogin->setText(query.value(1).toString());
                     ui->lineEditMDP->setText(query.value(2).toString());
                     ui->comboBoxRole->setCurrentText(query.value(3).toString());
-                    ui->lineEditIdEmp->setText(query.value(4).toString());
+                    ui->comboBoxIdEmpCompte->setCurrentText(query.value(4).toString());
 
                 }
             }
@@ -441,7 +415,7 @@ void Dialog::on_editConge_clicked()
                     ui->lineEdittLogin->setText(query.value(1).toString());
                     ui->lineEditMDP->setText(query.value(2).toString());
                     ui->comboBoxRole->setCurrentText(query.value(3).toString());
-                    ui->lineEditIdEmp->setText(query.value(4).toString());
+                    ui->comboBoxIdEmpCompte->setCurrentText(query.value(4).toString());
 
                 }
             }
@@ -461,10 +435,8 @@ void Dialog::on_idEmployeCompte_currentIndexChanged(const QString &arg1)
 
 }
 
-/*
 void Dialog::on_stat_clicked()
 {
-
     DrilldownChart *chart = new DrilldownChart();
     chart->setTheme(QChart::ChartThemeQt);
     chart->setAnimationOptions(QChart::AllAnimations);
@@ -473,64 +445,53 @@ void Dialog::on_stat_clicked()
     chart->legend()->setVisible(true);
     chart->legend()->setAlignment(Qt::AlignRight);
 
-    QPieSeries *marqueSeries = new QPieSeries(ui->tabWidget);
-    marqueSeries->setName("Location par Marque");
+    QPieSeries *etatAllEmpSeries = new QPieSeries(ui->statBox); //lkbira
 
+
+    etatAllEmpSeries->setName("Etat des employés");
     QSqlQuery query;
-    query.prepare("SELECT DISTINCT MARQUE from VOITURES");
-    query.exec();
-    while(query.next())
-    {
-        QString marque = query.value(0).toString();
-        QPieSeries *modeleSeries = new QPieSeries(ui->tabWidget);
-        modeleSeries->setName("Location par Modèle - " + marque);
+     query.prepare("SELECT DISTINCT etat from employe ");
+     query.exec();
 
-        QSqlQuery q;
-        q.prepare("SELECT DISTINCT MODELE from VOITURES where MARQUE='"+marque+"'");
-        q.exec();
-        while(q.next())
-        {
-            QString modele = q.value(0).toString();
-            QSqlQuery qr;
-            qr.prepare("select COUNT(*) from locations2 l inner join reservation r "
-                       "on l.idres=r.id_res inner join voitures v "
-                       "on r.matricule=v.matricule where v.modele='"+modele+"'");
-            qr.exec();
-            qr.next();
-            *modeleSeries << new DrilldownSlice(qr.value(0).toInt(), modele, marqueSeries);
-        }
+      while(query.next()) // ki tenzel aala les etats yhezek lel les roles fel etat hedheka
+      {
+          int etat = query.value(0).toInt();
+          QString etatS = query.value(0).toString();
+          QString etatString;
 
-        QObject::connect(modeleSeries, &QPieSeries::clicked, chart, &DrilldownChart::handleSliceClicked);
+          if (etat==1)
+          {
+              etatString="congé";
+          }
+          else if (etat==0)
+          {
+              etatString="travail";
+          }
 
-        *marqueSeries << new DrilldownSlice(modeleSeries->sum(), marque, modeleSeries);
-    }
+          QPieSeries *roleSeries = new QPieSeries(ui->statBox); // detaillé
+          roleSeries->setName("Role des employés en " + etatString);
+          QSqlQuery q;
+          q.prepare("SELECT DISTINCT compte.Role from Compte INNER JOIN employe on employe.id=compte.idemploye where etat='"+etatS+"'");
+          q.exec();
+          while(q.next())
+          {
+              QString role = q.value(0).toString();
+              QSqlQuery qr;
+              qr.prepare("select COUNT(*) from employe  inner join compte "
+                         "on employe.id=compte.idemploye where compte.role='"+role+"'");
 
-    QObject::connect(marqueSeries, &QPieSeries::clicked, chart, &DrilldownChart::handleSliceClicked);
+              qr.exec();
+              qr.next();
+              *roleSeries << new DrilldownSlice(qr.value(0).toInt(), role, etatAllEmpSeries);
+          }
+          QObject::connect(roleSeries, &QPieSeries::clicked, chart, &DrilldownChart::handleSliceClicked);
+          *etatAllEmpSeries << new DrilldownSlice(roleSeries->sum(), etatString, roleSeries);
+      }
 
-    chart->changeSeries(marqueSeries);
+      QObject::connect(etatAllEmpSeries, &QPieSeries::clicked, chart, &DrilldownChart::handleSliceClicked);
 
-    QChartView *chartView = new QChartView(chart,ui->Stat);
-    chartView->setRenderHint(QPainter::Antialiasing);
-
-    ui->stacked_location->setCurrentIndex(3);
-
+      chart->changeSeries(etatAllEmpSeries);
+      QChartView *chartView = new QChartView(chart,ui->statBox);
+      chartView->setRenderHint(QPainter::Antialiasing);
+    ui->stackedWidget_2->setCurrentIndex(1);
 }
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

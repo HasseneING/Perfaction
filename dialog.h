@@ -38,6 +38,7 @@ public:
     ~Dialog();
 
 private slots:
+    void init();
     void on_gestionEmp_clicked();
 
     void on_gestionConge_clicked();
@@ -85,6 +86,8 @@ private slots:
     void on_comboBoxTriConge_activated(int index);
 
     void on_idEmployeCompte_currentIndexChanged(const QString &arg1);
+
+    void on_stat_clicked();
 
 private:
     Ui::Dialog *ui;

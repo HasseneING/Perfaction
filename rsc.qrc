@@ -18,5 +18,6 @@
         <file>img/save.png</file>
         <file>img/search.png</file>
         <file>img/tick.png</file>
+        <file>img/stat.png</file>
     </qresource>
 </RCC>
