@@ -4,6 +4,14 @@ compte::compte()
 {
 
 }
+compte::compte(int id,QString login, QString mdp,QString role,int idEmploye)
+{
+    this->id=id;
+    this->login=login;
+    this->mdp=mdp;
+    this->role=role;
+    this->idEmploye=idEmploye;
+}
 compte::compte(QString login, QString mdp,QString role,int idEmploye)
 {
     this->login=login;
@@ -151,4 +159,22 @@ QSqlQueryModel * compte::Tri(int pos)
     model->setQuery(*q);
     return model;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

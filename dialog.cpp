@@ -5,7 +5,6 @@ Dialog::Dialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Dialog)
 {
-
     ui->setupUi(this);
     this->showMaximized();
 
@@ -21,7 +20,7 @@ Dialog::Dialog(QWidget *parent) :
 }
 void Dialog::init()
 {
-
+    //tmpEmploye.MiseaJourSoldeConge();
 }
 
 Dialog::~Dialog()
@@ -32,6 +31,8 @@ Dialog::~Dialog()
 void Dialog::on_gestionEmp_clicked()
 {
         ui->stackedWidget->setCurrentIndex(0);
+        ui->tableViewEmp->setModel(tmpEmploye.afficher());
+
 }
 
 void Dialog::on_gestionConge_clicked()
@@ -52,27 +53,28 @@ void Dialog::on_gestionCompte_clicked()
 {
        ui->stackedWidget->setCurrentIndex(2);
        QSqlQueryModel *model = new QSqlQueryModel;
-       model->setQuery("select id from employe");
+      //  model->setQuery("select id from employe");
+      model->setQuery("select employe.id from employe LEFT JOIN compte on employe.id=compte.idemploye WHERE compte.idemploye IS NULL");
        ui->comboBoxIdEmpCompte->setModel(model);
-        ui->tableViewCompte->setModel(tmpCompte.afficherCompte());
+       ui->tableViewCompte->setModel(tmpCompte.afficherCompte());
 
 }
-void Dialog::on_pushButton_11_clicked()
-{
-    ui->stackedWidgetConge->setCurrentIndex(0);
 
 
-
-
-}
-void Dialog::on_pushButton_12_clicked()
-{
-    ui->stackedWidgetConge->setCurrentIndex(1);
-
-}
 void Dialog::on_pushButton_6_clicked()
 {
     ui->tableViewEmp->setModel(tmpEmploye.afficher());
+
+    QSqlQuery query;
+    query.prepare ("select id from employe");
+    if (query.exec())
+    {
+        while (query.next())
+        {
+            int id = query.value(0).toInt();
+            tmpEmploye.MiseaJourSoldeConge(id);
+        }
+    }
 
 }
 void Dialog::on_afficher_clicked()
@@ -141,6 +143,7 @@ void Dialog::on_pushButtonModifierEmp_clicked()
             QModelIndex idIndex = selection.at(0);
             QString id = idIndex.data().toString();
 
+
             ui->lineEditID->setText(id);
 
             QSqlQuery query;
@@ -200,7 +203,7 @@ void Dialog::on_pushButtonSupprimerEmp_clicked()
 
 void Dialog::on_pushButton_ModifierEmp_clicked()
 {
-    int id= ui->lineEditNom->text().toInt();
+    int id= ui->lineEditID->text().toInt();
     QString nom= ui->lineEditNom->text();
     QString prenom= ui->lineEditPrenom->text();
     QString email= ui->lineEditEmail->text();
@@ -212,19 +215,22 @@ void Dialog::on_pushButton_ModifierEmp_clicked()
 
     employe e(id,nom,prenom,email,dateNaiss,numTel,dateMajConge,soldeConge,0);
 
-    bool test=e.modifier();
 
-    if(test)
+        QMessageBox msg;
+
+    if(  e.modifier(id) )
     {
         ui->tableViewEmp->setModel(tmpEmploye.afficher());
+        msg.setText("Modification avec succes.");
+        msg.exec();
 
 
     }
     else
     {
-        QMessageBox::critical(nullptr, QObject::tr("Modification"),
-                    QObject::tr("Erreur.\n"
-                                "Click Cancel to exit."), QMessageBox::Cancel);
+        msg.setText("Echec de la modification.");
+                msg.exec();
+
     }
 }
 
@@ -264,43 +270,20 @@ void Dialog::on_buttonEnvoyerDemande_clicked()
 
 
 
-void Dialog::on_pushButton_5_clicked() //accepter conge
-{
-    QModelIndexList selection = ui->tableViewCongeAll->selectionModel()->selectedRows(0);
-
-        if (!selection.empty()) {
-
-            QModelIndex idIndex = selection.at(0);
-
-            int id = idIndex.data().toInt();
-
-
-            employe e ;
-            bool test=e.affecterCongeEmp(id);
-             if (test)
-             {
-                 ui->tableViewCongeAll->setModel(tmpConge.afficherconge());
-             }
-             else
-             {
-                 QMessageBox::information(this, tr("Impossible de faire ceci"),
-                                          tr("erreur "));
-             }
-
-
-        }
-                 else {
-                    QMessageBox::information(this, tr("Impossible!"),
-                                             tr("Selectionnez l'employé que vous voulez Modifier."));
-                }
-}
-
 
 
 void Dialog::on_pushButton_AjouterCompte_clicked()
 {
 
     QString login= ui->lineEdittLogin->text();
+   /*  QString str;
+     int len=8;
+     str.resize(len);
+     for (int s = 0; s < len ; ++s)
+         str[s] = QChar('A' + char(qrand() % ('Z' - 'A')));*/
+
+
+     //ui->lineEditMDP->setText(str);
     QString mdp= ui->lineEditMDP->text();
     QString role= ui->comboBoxRole->currentText();
     int idEmploye =ui->comboBoxIdEmpCompte->currentText().toInt();
@@ -309,6 +292,7 @@ void Dialog::on_pushButton_AjouterCompte_clicked()
             if(test)
             {
                 ui->tableViewCompte->setModel(tmpCompte.afficherCompte());
+                on_gestionCompte_clicked();
             }
 
             else
@@ -321,6 +305,9 @@ void Dialog::on_pushButton_AjouterCompte_clicked()
 
 void Dialog::on_pushButton_modifierEmploye_clicked()
 {
+
+
+
     QModelIndexList selection = ui->tableViewCompte->selectionModel()->selectedRows(0);
 
         if (!selection.empty()) {
@@ -329,7 +316,9 @@ void Dialog::on_pushButton_modifierEmploye_clicked()
             QString id = idIndex.data().toString();
 
             ui->lineEditIDC->setText(id);
-
+            QSqlQueryModel *model = new QSqlQueryModel;
+           model->setQuery("select employe.id from employe LEFT JOIN compte on employe.id=compte.idemploye WHERE compte.idemploye IS NULL OR compte.id= '"+id+"' ");
+            ui->comboBoxIdEmpCompte->setModel(model);
             QSqlQuery query;
             query.prepare ("select id,login,mdp,role,idEmploye from compte where id = '"+id+"'");
             if (query.exec())
@@ -380,6 +369,7 @@ void Dialog::on_pushButton_9_clicked() //supprimer compte
             QSqlQuery q;
             q.prepare("delete from compte where ID='"+ids+"'");
             q.exec();
+            on_gestionCompte_clicked();
         }
     }
     else {
@@ -493,5 +483,126 @@ void Dialog::on_stat_clicked()
       chart->changeSeries(etatAllEmpSeries);
       QChartView *chartView = new QChartView(chart,ui->statBox);
       chartView->setRenderHint(QPainter::Antialiasing);
-    ui->stackedWidget_2->setCurrentIndex(1);
+    ui->stackedWidgetEmp->setCurrentIndex(1);
+}
+
+void Dialog::on_rechercherConge_textChanged(const QString &arg1)
+{
+    QString str=arg1;
+     str.replace("&", "");str.replace("/", ""); str.replace("(", ""); str.replace(")", "");str.replace("=", "");str.replace("*", "");str.replace("-", "");str.replace(".", ""); str.replace("+", "");str.replace(":", ""); str.replace(";", ""); str.replace("!", "");str.replace("§", "");str.replace("?", "");
+
+     ui->tableViewCongeAll->setModel(tmpConge.rechercher(str));
+}
+
+void Dialog::on_accepterConge_clicked()
+{
+    QModelIndexList selection = ui->tableViewCongeAll->selectionModel()->selectedRows(0);
+    QSqlQuery qry;
+        if (!selection.empty()) {
+
+            QModelIndex idIndex = selection.at(0);
+           // int id = idIndex.data().toInt();
+             int id = idIndex.sibling(idIndex.row(),6).data().toInt();
+             QString idS= QString::number(id);
+             employe e;
+
+             int etat=idIndex.sibling(idIndex.row(),5).data().toInt();
+
+               /*qry.prepare("SELECT etat FROM employe WHERE id='"+idS+"' ");
+               if (qry.exec())
+               {
+                  while (qry.next())
+                  {
+                        e.setEtat( qry.value(0).toInt()) ;
+
+                  }
+               }*/
+
+
+
+           /* if (e.getEtat()==0)
+            {
+                bool test=e.affecterCongeEmp(id);
+                 if (test)
+                 {
+                     ui->tableViewCongeAll->setModel(tmpConge.afficherconge());
+                 }
+                 else
+                 {
+                     QMessageBox::information(this, tr("Impossible de faire ceci"),
+                                              tr("erreur "));
+                 }
+
+
+            }*/
+             if (etat==0)
+                         {
+                             bool test=e.affecterCongeEmp(id);
+                              if (test)
+                              {
+                                  ui->tableViewCongeAll->setModel(tmpConge.afficherconge());
+                              }
+                              else
+                              {
+                                  QMessageBox::information(this, tr("Impossible de faire ceci"),
+                                                           tr("erreur "));
+                              }
+
+
+                         }
+
+        }
+                 else {
+                    QMessageBox::information(this, tr("Impossible!"),
+                                             tr("Selectionnez l'employé que vous voulez Modifier."));
+                }
+}
+
+void Dialog::on_refuserConge_clicked()
+{
+
+        ui->stackedWidgetConge->setCurrentIndex(0);
+
+}
+
+void Dialog::on_GestionCongeRH_clicked()
+{
+
+        ui->stackedWidgetConge->setCurrentIndex(1);
+
+}
+
+void Dialog::on_returnEmp_clicked()
+{
+    ui->stackedWidgetEmp->setCurrentIndex(0);
+}
+
+void Dialog::on_pushButton_ModifierCompte_clicked()
+{
+    int idC= ui->lineEditIDC->text().toInt();
+    QString login= ui->lineEdittLogin->text();
+    QString mdp= ui->lineEditMDP->text();
+    int idEmp = ui->comboBoxIdEmpCompte->currentText().toInt();
+    QString role= ui->comboBoxRole->currentText();
+
+    compte c(idC,login,mdp,role,idEmp);
+
+
+        QMessageBox msg;
+
+    if(  c.modifierCompte() )
+    {
+        ui->tableViewCompte->setModel(tmpCompte.afficherCompte());
+        on_gestionCompte_clicked();
+        msg.setText("Modification avec succes.");
+        msg.exec();
+
+
+    }
+    else
+    {
+        msg.setText("Echec de la modification.");
+                msg.exec();
+
+    }
 }

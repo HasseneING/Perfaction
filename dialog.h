@@ -61,11 +61,9 @@ private slots:
 
     void on_buttonEnvoyerDemande_clicked();
 
-    void on_pushButton_11_clicked();
+   // void on_pushButton_11_clicked();
 
-    void on_pushButton_12_clicked();
-
-    void on_pushButton_5_clicked();
+   // void on_pushButton_12_clicked();
 
     void on_afficher_clicked();
 
@@ -88,6 +86,20 @@ private slots:
     void on_idEmployeCompte_currentIndexChanged(const QString &arg1);
 
     void on_stat_clicked();
+
+    void on_rechercherConge_textChanged(const QString &arg1);
+
+    void on_pushButton_4_clicked();
+
+    void on_accepterConge_clicked();
+
+    void on_refuserConge_clicked();
+
+    void on_GestionCongeRH_clicked();
+
+    void on_returnEmp_clicked();
+
+    void on_pushButton_ModifierCompte_clicked();
 
 private:
     Ui::Dialog *ui;

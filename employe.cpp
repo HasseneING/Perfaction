@@ -79,10 +79,8 @@ bool employe::ajouter()
     return    query.exec();
 }
 
-bool employe::modifier()
+bool employe::modifier(int id)
 {
-
-
 
     //int id; QString nom; QString prenom; QString email; QDate dateNaiss;  QString numTel; QDate dateMajConge;int soldeConge;bool etat;
 
@@ -218,54 +216,83 @@ QSqlQueryModel * employe::Tri(int pos)
     return model;
 }
 
-bool employe::MiseaJourSoldeConge()
+void employe::MiseaJourSoldeConge(int id)
 {
+   QString idS= QString::number(id);
     QSqlQuery query;
     QSqlQuery query1;
+    QSqlQuery q;
     QDate date;
-    while (true)
+    q.prepare("select dateMajConge FROM employe where id='"+idS+"'");
+    if (q.exec())
     {
-        if(dateMajConge.month()<date.currentDate().month())
-        {
-            dateMajConge=date.currentDate();
-            query.prepare("UPDATE employe SET soldeConge=soldeConge+2");
-            query1.prepare("UPDATE employe set dateMajConge=:dateMajConge ");
-            query1.bindValue(":dateMajConge",dateMajConge);
+       while (q.next())
+       {
+            QDate maj = q.value(0).toDate();
+            if(maj.month()+1 == date.currentDate().month())
+            {
+                query.prepare("UPDATE employe SET soldeConge=soldeConge+2 where id='"+idS+"'");
+                query1.prepare("UPDATE employe set dateMajConge=:dateMajConge where id='"+idS+"'");
+                query1.bindValue(":dateMajConge",date.currentDate());
+                query1.exec();
+                query.exec();
 
-        }
+            }
+       }
     }
 }
 
 
 
-bool employe::affecterCongeEmp( int id )
+bool employe::affecterCongeEmp(int id)
 {
-    employe e;
- //   QDate date;
     QSqlQuery query;
+    QString idS= QString::number(id);
      QSqlQuery query1;
-      conge c;
-      QDate dateDebut =c.getconge(id).getDateDebut();
-      QDate dateFin =c.getconge(id).getDateFin();
-      //QDate dateRetour =c.getconge(id).getDateRetour();
-     // int date = dateDebut.daysTo(dateFin);
-      int date = dateFin.day()-dateDebut.day();
+     QSqlQuery q;
+     QSqlQuery q1;
+     QSqlQuery q2;
+      int solde=0;
+      int soldeTotal=0;
 
-  //   int solde= 5- date;
 
-    query.prepare("UPDATE employe SET soldeConge=:soldeConge, etat=:etat WHERE  employe.id=(select idemploye from conge where conge.id=:id) ");
-    query1.prepare("UPDATE conge SET etat=:etat WHERE id=:id ");
 
-    query.bindValue(":soldeConge",date);
-    query.bindValue(":etat",1);
-    query1.bindValue(":etat",1);
+            q.prepare("SELECT datedebut, dateFIN FROM conge WHERE id='"+idS+"' ");
+            if (q.exec())
+            {
+               while (q.next())
+               {
+                    QDate dateD = q.value(0).toDate();
+                    QDate dateF = q.value(1).toDate();
+                    solde= dateF.day()-dateD.day();
 
-   query.bindValue(":id",id);
-   query1.bindValue(":id",id);
-   bool test=query.exec();
-   bool test1=query1.exec();
+               }
+            }
 
-return  (test & test1);
+
+            q1.prepare("SELECT employe.soldeConge FROM employe WHERE  employe.id=(select conge.idemploye from conge where id='"+idS+"')");
+
+
+            if (q1.exec())
+            {
+               while (q1.next())
+               {
+                     soldeTotal = q1.value(0).toInt();
+
+               }
+            }
+        soldeConge=(soldeTotal-solde);
+        query.prepare("UPDATE employe SET soldeConge=:soldeConge, etat=:etat WHERE  employe.id=(select conge.idemploye from conge where id='"+idS+"') ");
+        query1.prepare("UPDATE conge SET etat=:etat WHERE id='"+idS+"' ");
+        query.bindValue(":soldeConge",soldeConge);
+        query.bindValue(":etat",1);
+        query1.bindValue(":etat",1);
+         bool test=query.exec();
+         bool test1=query1.exec();
+         return  (test & test1);
+
+
+
 
 }
 

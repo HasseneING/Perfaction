@@ -122,19 +122,19 @@ QSqlQueryModel * conge::affichercongeEmp(QString ID)
     model->setQuery("select conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat FROM employe  INNER JOIN conge on employe.id=conge.idEmploye AND employe.id= '" +ID+ "' ");
    // query.bindValue(":id",ID);
 
-    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Id Congé"));
-    model->setHeaderData(4, Qt::Horizontal, QObject::tr("dateDebut"));
-    model->setHeaderData(5, Qt::Horizontal, QObject::tr("dateFin"));
-    model->setHeaderData(6, Qt::Horizontal, QObject::tr("Date de Retour"));
-    model->setHeaderData(7, Qt::Horizontal, QObject::tr("Motif"));
-    model->setHeaderData(8, Qt::Horizontal, QObject::tr("Etat"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id Congé"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("dateDebut"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("dateFin"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Date de Retour"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("Motif"));
+    model->setHeaderData(5, Qt::Horizontal, QObject::tr("Etat"));
 return model;
 }
 QSqlQueryModel *conge::rechercher( QString c)
 {
 
     QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat employe  INNER JOIN conge on employe.id=conge.idEmploye AND ((conge.id LIKE '"+c+"%')  OR (employe.nom LIKE '"+c+"%') OR (employe.prenom LIKE '"+c+"%'))");
+    model->setQuery("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat FROM employe  INNER JOIN conge on employe.id=conge.idEmploye AND ((conge.id LIKE '"+c+"%')  OR (employe.nom LIKE '"+c+"%') OR (employe.prenom LIKE '"+c+"%'))");
 
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Id Congé"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("dateDebut"));
@@ -152,12 +152,12 @@ QSqlQueryModel * conge::Tri(int pos)
     switch (pos) {
         case 0:
         {
-            q->prepare("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat employe  INNER JOIN conge on employe.id=conge.idEmploye ORDER BY conge.id ASC");
+            q->prepare("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat FROM employe  INNER JOIN conge on employe.id=conge.idEmploye ORDER BY conge.id ASC");
         }
         break;
         case 1:
         {
-            q->prepare("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat employe  INNER JOIN conge on employe.id=conge.idEmploye ORDER BY conge.id DESC");
+            q->prepare("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat FROM employe  INNER JOIN conge on employe.id=conge.idEmploye ORDER BY conge.id DESC");
         }
 
     }

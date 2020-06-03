@@ -5,6 +5,7 @@
 #include <QSqlQueryModel>
 #include <QDate>
 
+
 class compte
 {
 public:
@@ -12,6 +13,7 @@ public:
     compte();
     // int id, QString login , QString mdp, int role ,int idemploye , bool etat
     compte(QString,QString,QString,int);
+    compte(int,QString,QString,QString,int);
     //getters
     int getId(){return id;}
     QString getLogin(){return login;}
@@ -37,6 +39,7 @@ public:
     bool supprimerCompte(int);
     QSqlQueryModel *rechercher(QString c);
     QSqlQueryModel *Tri(int );
+
 
 
 private:

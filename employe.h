@@ -38,13 +38,13 @@ public:
 
 
     bool ajouter();
-    bool modifier();
+    bool modifier(int);
     employe getEmploye(int);
     QSqlQueryModel * afficher();
     bool supprimer(int);
     QSqlQueryModel *rechercher(QString c);
     QSqlQueryModel *Tri(int);
-    bool MiseaJourSoldeConge();
+    void MiseaJourSoldeConge(int);
     bool affecterCongeEmp(int id );
     bool refuserConge(int id);
 
