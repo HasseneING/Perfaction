@@ -23,12 +23,9 @@ SOURCES += \
     clientph.cpp \
     connexion.cpp \
     dialog.cpp \
-    fournisseur.cpp \
     main.cpp \
     mainwindow.cpp \
-    ordinateur.cpp \
-    smtp.cpp \
-    voiture.cpp
+    smtp.cpp
 
 HEADERS += \
     carte.h \
@@ -40,11 +37,8 @@ HEADERS += \
     dialog.cpp.autosave \
     dialog.h \
     dialog.h.autosave \
-    fournisseur.h \
     mainwindow.h \
-    ordinateur.h \
-    smtp.h \
-    voiture.h
+    smtp.h
 
 FORMS += \
     dialog.ui \
