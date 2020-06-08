@@ -1,6 +1,7 @@
 #include "employe.h"
-#include "conge.h"
 
+#include "conge.h"
+#include<QDebug>
 //int id; QString nom; QString prenom; QString email; QDate dateNaiss;  QString numTel; QDate dateMajConge;int soldeConge;bool etat;
 employe::employe()
 {
@@ -154,7 +155,7 @@ QSqlQueryModel *employe::rechercher( QString c)
 
 
     QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("select * from employe where (employe.nom LIKE '"+c+"%') OR (employe.prenom LIKE '"+c+"%') OR (employe.id LIKE '"+c+"%') ");
+    model->setQuery("select * from employe where (UPPER(employe.nom) LIKE UPPER('"+c+"%')) OR (UPPER(employe.prenom) LIKE UPPER('"+c+"%')) OR (employe.id LIKE '"+c+"%') ");
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id"));
     model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nom"));
     model->setHeaderData(2, Qt::Horizontal, QObject::tr("Prenom"));
@@ -243,6 +244,32 @@ void employe::MiseaJourSoldeConge(int id)
 }
 
 
+void employe::MiseaJourConge()
+{
+    QSqlQuery query;
+    QSqlQuery q;
+    QDate date;
+    q.prepare("select * FROM employe inner join conge on conge.idemploye=employe.id where employe.etat=1");
+    if (q.exec())
+    {
+       while (q.next())
+       {
+            QDate date_fin = q.value(12).toDate();
+            QString id= QString::number(q.value(0).toInt());
+            QString etatE= QString::number(0);
+
+            if(date_fin <= date.currentDate())
+            {
+                query.prepare("UPDATE employe SET etat=:etat where id=:id");
+                query.bindValue(":etat",etatE);
+                query.bindValue(":id",id);
+                query.exec();
+            }
+       }
+    }
+}
+
+
 
 bool employe::affecterCongeEmp(int id)
 {
@@ -256,8 +283,7 @@ bool employe::affecterCongeEmp(int id)
       int soldeTotal=0;
 
 
-
-            q.prepare("SELECT datedebut, dateFIN FROM conge WHERE id='"+idS+"' ");
+            q.prepare("SELECT datedebut, dateFIN,idemploye FROM conge WHERE id='"+idS+"' ");
             if (q.exec())
             {
                while (q.next())
@@ -268,7 +294,6 @@ bool employe::affecterCongeEmp(int id)
 
                }
             }
-
 
             q1.prepare("SELECT employe.soldeConge FROM employe WHERE  employe.id=(select conge.idemploye from conge where id='"+idS+"')");
 
@@ -282,14 +307,21 @@ bool employe::affecterCongeEmp(int id)
                }
             }
         soldeConge=(soldeTotal-solde);
-        query.prepare("UPDATE employe SET soldeConge=:soldeConge, etat=:etat WHERE  employe.id=(select conge.idemploye from conge where id='"+idS+"') ");
-        query1.prepare("UPDATE conge SET etat=:etat WHERE id='"+idS+"' ");
+        query.prepare("UPDATE employe SET etat=:etat,soldeConge=:soldeConge WHERE  employe.id=(select conge.idemploye from conge where id=:id) ");
+        query1.prepare("UPDATE conge SET etat=:etat WHERE id=:id ");
         query.bindValue(":soldeConge",soldeConge);
         query.bindValue(":etat",1);
-        query1.bindValue(":etat",1);
+       query1.bindValue(":etat",1);
+       query.bindValue(":id", idS);
+       query1.bindValue(":id", idS);
          bool test=query.exec();
          bool test1=query1.exec();
+         qDebug() << "fct1!"<<test ;
+         qDebug() << "fct2!"<<test1 ;
          return  (test & test1);
+
+
+
 
 
 
@@ -311,21 +343,3 @@ bool employe::refuserConge(int id)
     //mail
     return    query.exec();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

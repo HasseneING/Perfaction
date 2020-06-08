@@ -1,7 +1,4 @@
-QT       += core gui \
-    quick
-QT+=sql
-QT += charts
+QT       += core gui sql printsupport charts network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,6 +16,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    assurance.cpp \
+    carte.cpp \
+    chart.cpp \
+    client.cpp \
+    clientmo.cpp \
+    clientph.cpp \
     compte.cpp \
     conge.cpp \
     connexion.cpp \
@@ -26,11 +29,19 @@ SOURCES += \
     drilldownchart.cpp \
     drilldownslice.cpp \
     employe.cpp \
+    location.cpp \
     main.cpp \
     mainwindow.cpp \
-    mainwindow.cpp
+    reservation.cpp \
+    smtp.cpp \
+    vignette.cpp \
+    visite.cpp
 
 HEADERS += \
+    assurance.h \
+    carte.h \
+    chart.h \
+    client.h \
     compte.h \
     conge.h \
     connexion.h \
@@ -38,13 +49,15 @@ HEADERS += \
     drilldownchart.h \
     drilldownslice.h \
     employe.h \
+    location.h \
     mainwindow.h \
-    mainwindow.h \
-    ui_dialog.h
+    reservation.h \
+    smtp.h \
+    vignette.h \
+    visite.h
 
 FORMS += \
     dialog.ui \
-    mainwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.
@@ -52,8 +65,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-
-
 RESOURCES += \
-    rsc.qrc \
-    rsc.qrc
+    img.qrc
+
+DISTFILES +=

@@ -1,5 +1,7 @@
- #ifndef EMPLOYE_H
+#ifndef EMPLOYE_H
 #define EMPLOYE_H
+
+
 #include <QString>
 #include <QDate>
 #include <QSqlQuery>
@@ -47,6 +49,7 @@ public:
     void MiseaJourSoldeConge(int);
     bool affecterCongeEmp(int id );
     bool refuserConge(int id);
+    void MiseaJourConge();
 
 private:
     int id;

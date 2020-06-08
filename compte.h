@@ -1,5 +1,6 @@
 #ifndef COMPTE_H
 #define COMPTE_H
+
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>

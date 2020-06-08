@@ -1,5 +1,6 @@
 #ifndef CONGE_H
 #define CONGE_H
+
 #include <QString>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
@@ -10,7 +11,7 @@ class conge
 public:
 
     conge();
-
+    conge(int,QDate,QDate,QDate,QString,int);
     conge(QDate,QDate,QDate,QString,bool,int);
 
     //getters

@@ -1,6 +1,5 @@
 #include "conge.h"
 #include "employe.h"
-
 // conge(QDate,QDate,QDate,QString,bool,int,float,QDate);
 conge::conge()
 {
@@ -13,6 +12,15 @@ conge::conge(QDate dateDebut,QDate dateFin,QDate dateRetour,QString motif,bool e
     this->dateRetour=dateRetour;
     this->motif=motif;
     this->etat=etat;
+    this->idEmploye=idEmploye;
+}
+conge::conge(int id,QDate dateDebut,QDate dateFin,QDate dateRetour,QString motif,int idEmploye)
+{
+    this->id=id;
+    this->dateFin=dateFin;
+    this->dateDebut=dateDebut;
+    this->dateRetour=dateRetour;
+    this->motif=motif;
     this->idEmploye=idEmploye;
 }
  bool conge::ajouterconge()
@@ -38,14 +46,13 @@ bool conge::modifierconge()
     QSqlQuery query;
     QString id_e= QString::number(id);
     QString idEmployeC= QString::number(idEmploye);
-     QString etatC= QString::number(etat);
-   query.prepare("UPDATE conge SET dateDebut=:dateDebut , dateFin=:dateFin , dateRetour=:dateRetour , motif=:motif , etat=:etat , idEmploye=:idEmploye WHERE ID=:ID");
+
+   query.prepare("UPDATE conge SET dateDebut=:dateDebut , dateFin=:dateFin , dateRetour=:dateRetour , motif=:motif , idEmploye=:idEmploye WHERE ID=:ID");
     query.bindValue(":ID", id_e);
     query.bindValue(":dateDebut", dateDebut);
     query.bindValue(":dateFin", dateFin);
     query.bindValue(":dateRetour", dateRetour);
     query.bindValue(":motif", motif);
-    query.bindValue(":etat", etatC);
     query.bindValue(":idEmploye", idEmployeC);
 
     return    query.exec();
@@ -77,7 +84,7 @@ bool conge::supprimerconge(int ID)
 conge conge::getconge(int id)
 {
     QSqlQuery query;
-    query.prepare("select * from conge where id=:id");
+    query.prepare("select id , datedebut , datefin , dateretour , motif , etat , idemploye from conge where id=:id");
     query.bindValue(":id", id);
     conge *e=new conge;
     query.exec();
@@ -89,8 +96,9 @@ conge conge::getconge(int id)
             e->setDateFin(query.value(2).toDate());
             e->setDateRetour(query.value(3).toDate());
             e->setMotif(query.value(4).toString());
-            e->setIdEmploye(query.value(6).toInt());
             e->setEtat(query.value(5).toInt());
+            e->setIdEmploye(query.value(6).toInt());
+
 
     }
     return  (*e);
@@ -134,7 +142,7 @@ QSqlQueryModel *conge::rechercher( QString c)
 {
 
     QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat FROM employe  INNER JOIN conge on employe.id=conge.idEmploye AND ((conge.id LIKE '"+c+"%')  OR (employe.nom LIKE '"+c+"%') OR (employe.prenom LIKE '"+c+"%'))");
+    model->setQuery("select employe.id,employe.nom , employe.prenom , conge.id, conge.datedebut , conge.datefin , conge.dateretour , conge.motif , conge.etat FROM employe  INNER JOIN conge on employe.id=conge.idEmploye AND ((conge.id LIKE '"+c+"%')  OR (UPPER (employe.nom) LIKE UPPER('"+c+"%')) OR (UPPER(employe.prenom) LIKE UPPER('"+c+"%') ))");
 
     model->setHeaderData(3, Qt::Horizontal, QObject::tr("Id Congé"));
     model->setHeaderData(4, Qt::Horizontal, QObject::tr("dateDebut"));
@@ -167,26 +175,3 @@ QSqlQueryModel * conge::Tri(int pos)
     model->setQuery(*q);
     return model;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

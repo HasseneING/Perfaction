@@ -86,7 +86,7 @@ bool compte::modifierCompte()
     QString idEmployeC= QString::number(idEmploye);
 
     query.prepare("UPDATE compte SET login=:login,mdp=:mdp,role=:role , idEmploye=:idEmploye where ID=:ID");
-    query.bindValue(":id", idC);
+    query.bindValue(":ID", idC);
     query.bindValue(":login", login);
     query.bindValue(":mdp", mdp);
     query.bindValue(":role", role);
@@ -119,7 +119,7 @@ QSqlQueryModel *compte::rechercher( QString c)
     //int id;QString nom;QString prenom;QString email;QDate dateNaiss;int numTel;
 
     QSqlQueryModel * model= new QSqlQueryModel();
-    model->setQuery("select compte.id,compte.login,compte.mdp,compte.role,employe.nom,employe.prenom,employe.id FROM employe INNER JOIN compte ON employe.id=compte.idEmploye AND ((compte.login LIKE '"+c+"%') OR (compte.id LIKE '"+c+"%') OR (employe.nom LIKE '"+c+"%') OR (employe.prenom LIKE '"+c+"%'))");
+    model->setQuery("select compte.id,compte.login,compte.mdp,compte.role,employe.nom,employe.prenom,employe.id FROM employe INNER JOIN compte ON employe.id=compte.idEmploye AND ((UPPER(compte.login) LIKE UPPER('"+c+"%')) OR (compte.id LIKE '"+c+"%') OR (UPPER(employe.nom) LIKE UPPER('"+c+"%')) OR (UPPER(employe.prenom) LIKE UPPER('"+c+"%')) )");
 
 
     model->setHeaderData(0, Qt::Horizontal, QObject::tr("Id employé"));
@@ -159,22 +159,3 @@ QSqlQueryModel * compte::Tri(int pos)
     model->setQuery(*q);
     return model;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

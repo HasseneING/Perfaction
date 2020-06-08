@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/add.png</file>
+        <file>img/calcul.png</file>
+        <file>img/delete.png</file>
+        <file>img/edit.png</file>
+        <file>img/history.png</file>
+        <file>img/login.jpg</file>
+        <file>img/logo.png</file>
+        <file>img/pdf.png</file>
+        <file>img/pneu.png</file>
+        <file>img/refresh.png</file>
+        <file>img/return.png</file>
+        <file>img/save.png</file>
+        <file>img/stat.png</file>
+        <file>img/carte.png</file>
+        <file>img/clients.png</file>
+        <file>img/compte.png</file>
+        <file>img/conge.png</file>
+        <file>img/employe.png</file>
+        <file>img/location.png</file>
+        <file>img/ordi.png</file>
+        <file>img/reservation.png</file>
+        <file>img/vignette.png</file>
+        <file>img/voiture.png</file>
+        <file>img/offre.png</file>
+        <file>img/evenement.png</file>
+        <file>img/visite.png</file>
+        <file>img/assurance.png</file>
+        <file>img/home.png</file>
+        <file>img/heart.png</file>
+        <file>img/list.png</file>
+        <file>img/list2.png</file>
+        <file>img/tick.png</file>
+    </qresource>
+</RCC>

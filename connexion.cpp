@@ -1,18 +1,24 @@
 #include "connexion.h"
+#include <exception>
 
-Connexion::Connexion()
-{}
-
-bool Connexion::ouvrirConnexion()
+Connection::Connection()
 {
-        db = QSqlDatabase::addDatabase("QODBC");
-        db.setDatabaseName("Source_Projet2A");
-        db.setUserName("zohraharibi");
-        db.setPassword("zohra");
-        if(db.open())
-            return true;
 
-        return false;
-    }
-void Connexion::fermerConnexion()
-{db.close();}
+}
+
+bool Connection::createconnect()
+{
+    db = QSqlDatabase::addDatabase("QODBC");
+    db.setDatabaseName("Source_Projet2A");
+    db.setUserName("zohraharibi");
+    db.setPassword("zohra");
+    if(db.open())
+        return true;
+
+    return false;
+}
+
+void Connection::fermer()
+{
+    db.close();
+}

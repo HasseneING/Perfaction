@@ -1,6 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "dialog.h"
+
 #include <QMainWindow>
 
 namespace Ui {
@@ -13,7 +13,10 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);
-  //  ~MainWindow();
+    ~MainWindow();
+
+private slots:
+    void on_pushButton_41_clicked();
 
 private:
     Ui::MainWindow *ui;
