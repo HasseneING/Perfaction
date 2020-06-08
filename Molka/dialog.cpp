@@ -74,6 +74,13 @@ void Dialog::on_afficher_loc_clicked()
 
 }
 
+int verifEmail(const char *  email)
+{
+    int test=strcmp(email,"@");
+    return  test;
+}
+
+
 void Dialog::on_afficher_loc_2_clicked()
 {
     ui->stacked_location->setCurrentIndex(0);

@@ -23,7 +23,11 @@ public:
     ~Dialog();
 
 private slots:
+<<<<<<< Updated upstream
     void init();
+=======
+    int verifEmail(QString);
+>>>>>>> Stashed changes
 
     void on_afficher_loc_clicked();
 
