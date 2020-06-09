@@ -913,7 +913,7 @@
     <string notr="true">background-color: rgb(27, 153, 139);</string>
    </property>
    <property name="currentIndex">
-    <number>5</number>
+    <number>11</number>
    </property>
    <widget class="QWidget" name="Accueil">
     <widget class="QToolBox" name="toolBox">
@@ -16514,8 +16514,6 @@ background-repeat: none;</string>
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="Comptes"/>
-   <widget class="QWidget" name="Conges"/>
    <widget class="QWidget" name="Vidange">
     <widget class="QStackedWidget" name="stackedAssu">
      <property name="geometry">
